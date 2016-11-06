@@ -8,8 +8,8 @@
 		<artifactId>apps</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>apps-business</artifactId>
-	<name>apps-business</name>
+	<artifactId>apps-web-service-models</artifactId>
+	<name>apps-web-service-models</name>
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
 	
@@ -17,20 +17,5 @@
 	</properties>
 	
 	<dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>apps-dao</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>apps-service-interfaces</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
-		</dependency>
 	</dependencies>
 </project>

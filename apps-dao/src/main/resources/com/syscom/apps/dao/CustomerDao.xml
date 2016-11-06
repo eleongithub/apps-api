@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syscom.apps.dao.CustomerDao">
+	<insert id="create">
+		INSERT INTO T_CUSTOMER(
+			CU_ID,
+			CU_LOGIN,
+			CU_NAME,
+			CU_FIRST_NAME,
+			CU_MAIL,
+			CU_SALT,
+			CU_PASSWORD,
+			CU_PHONE,
+			CU_CHANGE_PASSWORD,
+			CU_FROZEN_ACCOUNT,
+			CU_FROZEN_DATE,
+			CU_ORIGIN_FROZEN_MSG,
+			CU_LAST_FAILURE_CONNEXION_DATE,
+			CRE_DATE,
+			UP_DATE
+		)
+		VALUES
+		(
+			nextval('CUSTOMER_SEQ'),
+			#{customer.login,jdbcType=VARCHAR},
+			#{customer.name,jdbcType=VARCHAR},
+			#{customer.firstName,jdbcType=VARCHAR},
+			#{customer.mail,jdbcType=VARCHAR},
+			#{customer.salt,jdbcType=VARCHAR},
+			#{customer.password,jdbcType=VARCHAR},
+			#{customer.phone,jdbcType=VARCHAR},
+			#{customer.changePassword,jdbcType=BOOLEAN},
+			#{customer.frozenAccount,jdbcType=BOOLEAN},
+			#{customer.frozenDate,jdbcType=TIMESTAMP},
+			#{customer.originFrozenMsg,jdbcType=VARCHAR},
+			#{customer.lastFailureConnexionDate,jdbcType=TIMESTAMP},
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+	
+	<select id="findCustomerById" resultMap="customerResultMap">
+		<include refid="selectCustomer"></include>
+		WHERE CU_ID=#{id};
+	</select>
+	
+	
+	<select id="findCustomersByCriteria" resultMap="customerResultMap">
+		<include refid="selectCustomer"></include>
+		WHERE 1=1 AND
+			CU.CU_LOGIN=#{criteria.login} OR CU.CU_PHONE=#{criteria.phone}
+			OR (CU.CU_NAME=#{criteria.name} AND CU.CU_FIRST_NAME=#{criteria.firstName})
+			OR CU.CU_MAIL=#{criteria.mail};
+	</select>
+	
+	<update id="update">
+		UPDATE T_CUSTOMER
+		SET 
+			CU_LOGIN=#{customer.login},
+			CU_MAIL=#{customer.mail},
+			CU_NAME=#{customer.name},
+			CU_FIRST_NAME=#{customer.firstName},
+			CU_SALT=#{customer.salt},
+			CU_PASSWORD=#{customer.password},
+			CU_PHONE=#{customer.phone},
+			CU_CHANGE_PASSWORD=#{customer.changePassword},
+			CU_FROZEN_ACCOUNT=#{customer.frozenAccount},
+			CU_FROZEN_DATE=#{customer.frozenDate},
+			CU_ORIGIN_FROZEN_MSG=#{customer.originFrozenMsg},
+			CU_LAST_FAILURE_CONNEXION_DATE=#{customer.lastFailureConnexionDate},
+			UP_DATE=CURRENT_TIMESTAMP
+		WHERE
+			CU_ID=#{customer.id};
+	</update>
+	
+	<delete id="delete">
+		DELETE FROM T_CUSTOMER WHERE CU_ID=#{id};
+	</delete>
+	
+	
+	<sql id="selectCustomer">
+		SELECT
+			CU.CU_ID AS id,
+			CU.CU_LOGIN AS login,
+			CU.CU_NAME AS name,
+			CU.CU_FIRST_NAME AS firstName,
+			CU.CU_MAIL AS mail,
+			CU.CU_SALT AS salt,
+			CU.CU_PASSWORD AS password,
+			CU.CU_PHONE AS phone,
+			CU.CU_CHANGE_PASSWORD AS changePassword,
+			CU.CU_FROZEN_ACCOUNT AS frozenAccount,
+			CU.CU_FROZEN_DATE AS frozenDate,
+			CU.CU_ORIGIN_FROZEN_MSG AS originFrozenMsg,
+			CU.CU_LAST_FAILURE_CONNEXION_DATE AS lastFailureConnexionDate,
+			CU.CRE_DATE AS createDate,
+			CU.UP_DATE AS updateDate
+		FROM 
+			T_CUSTOMER CU
+	</sql>
+	
+	<resultMap id="customerResultMap" type="com.syscom.apps.model.Customer">
+		<id property="id" column="id" />
+		<result property="login" column="login" />
+		<result property="mail" column="mail" />
+		<result property="name" column="name" />
+		<result property="firstName" column="firstName" />
+		<result property="password" column="password" />
+		<result property="salt" column="salt" />
+		<result property="phone" column="phone" />
+		<result property="changePassword" column="changePassword" />
+		<result property="frozenAccount" column="frozenAccount" />
+		<result property="frozenDate" column="frozenDate" />
+		<result property="originFrozenMsg" column="originFrozenMsg" />
+		<result property="lastFailureConnexionDate" column="lastFailureConnexionDate" />
+		<result property="createDate" column="createDate" />
+		<result property="updateDate" column="updateDate" />
+	</resultMap>
+	
+
+</mapper>
