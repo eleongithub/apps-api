@@ -7,7 +7,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -17,15 +16,12 @@ import org.springframework.security.web.authentication.AbstractAuthenticationPro
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedCredentialsNotFoundException;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.stereotype.Component;
-import com.syscom.apps.business.service.TokenService;
 
 @Component
 public class AuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter {
 
 	private static final String AUTHORIZATION = "Authorization";
 
-//	@Autowired
-//	private TokenService tokenService;
 
 	public AuthenticationTokenFilter() {
 		super("/api/**");
@@ -53,13 +49,6 @@ public class AuthenticationTokenFilter extends AbstractAuthenticationProcessingF
 			throw new PreAuthenticatedCredentialsNotFoundException(
 					"No token found in request headers. Unauthorized access.");
 		}
-
-//		Token token = tokenService.findValidToken(accessToken);
-//		if (token == null) {
-//			throw new PreAuthenticatedCredentialsNotFoundException(
-//					"Unvalid token. Unauthorized access.");
-//		}
-
 		JwtAuthenticationToken authRequest = new JwtAuthenticationToken(accessToken);
 		
 		return getAuthenticationManager().authenticate(authRequest);
