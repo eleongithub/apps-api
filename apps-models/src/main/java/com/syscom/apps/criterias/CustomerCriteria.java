@@ -2,22 +2,103 @@ package com.syscom.apps.criterias;
 
 import java.io.Serializable;
 
+/**
+ * Classe contenant les critères de recherche d'un utilisateur
+ * 
+ * 
+ * @author Eric LEGBA
+ *
+ */
 public class CustomerCriteria implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	
 	private Long id;
 	private String name;
 	private String firstName;
 	private String mail;
-	private String login;
 	private String password;
 	private String phone;
 	
+	/**
+	 * Constructeur par défaut
+	 * 
+	 */
+	public CustomerCriteria(){
+		
+	}
+	
+	/**
+	 * 
+	 * Builder pour construire les critères de recherche
+	 * 
+	 * @author Eric LEGBA
+	 *
+	 */
+	public static class Builder {
+
+		private Long id;
+		private String name;
+		private String firstName;
+		private String mail;
+		private String password;
+		private String phone;
+		
+		public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
+		
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder firstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public Builder mail(String mail) {
+            this.mail = mail;
+            return this;
+        }
+        
+        public Builder password(String password) {
+            this.password = password;
+            return this;
+        }
+        
+        public Builder phone(String phone) {
+            this.phone = phone;
+            return this;
+        }
+        
+
+        public CustomerCriteria build() {
+            return new CustomerCriteria(this);
+        }
+
+    }
+
+	/**
+	 * 
+	 * Constructeur des critères de recherche à partir du builder.
+	 * 
+	 * @param builder {@link Builder}
+	 */
+    private CustomerCriteria(Builder builder) {
+        id = builder.id;
+        name = builder.name;
+        firstName = builder.firstName;
+        mail = builder.mail;
+        password = builder.password;
+        phone = builder.phone;
+    }
+    
 	
 	public Long getId() {
 		return id;
@@ -43,12 +124,6 @@ public class CustomerCriteria implements Serializable{
 	public void setMail(String mail) {
 		this.mail = mail;
 	}
-	public String getLogin() {
-		return login;
-	}
-	public void setLogin(String login) {
-		this.login = login;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -60,7 +135,6 @@ public class CustomerCriteria implements Serializable{
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	
+	}	
 	
 }

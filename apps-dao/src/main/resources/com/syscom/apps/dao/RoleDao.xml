@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syscom.apps.dao.RoleDao">
+
+	<select id="findRoleByCode" resultMap="roleResultMap">
+		SELECT
+			 RO.RO_ID AS id,
+			 RO.RO_CODE AS code,
+			 RO.RO_NAME AS name,
+			 RO.CRE_DATE AS createDate,
+			 RO.UP_DATE AS updateDate,
+			 FU.FU_ID AS fuId,
+			 FU.FU_CODE AS fuCode,
+			 FU.FU_NAME AS fuName,
+			 FU.CRE_DATE AS fuCreateDate,
+			 FU.UP_DATE AS fuUpdateDate
+		FROM T_ROLE RO 
+		LEFT JOIN T_ROLE_FUNCTION RF ON RF.RO_ID=RO.RO_ID 
+		LEFT JOIN T_FUNCTION FU ON FU.FU_ID=RF.FU_ID;
+	</select>
+
+	<resultMap id="roleResultMap" type="com.syscom.apps.model.referential.Role">
+		<id property="id" column="id" />
+		<result property="code" column="code" />
+		<result property="name" column="name" />
+		<result property="createDate" column="createDate" />
+		<result property="updateDate" column="updateDate" />
+		<collection property="functions" ofType="com.syscom.apps.model.referential.Function">
+        	<result property="id" column="fuId"/>
+        	<result property="code" column="fuCode" />
+			<result property="name" column="fuName" />
+			<result property="createDate" column="fuCreateDate" />
+			<result property="updateDate" column="fuUpdateDate" />
+    	</collection>
+	</resultMap>
+	
+</mapper>

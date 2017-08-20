@@ -1,0 +1,33 @@
+<beans:beans xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+    http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<!-- Enable the annotations for defining the secure role -->
+	<security:global-method-security secured-annotations="enabled" />
+
+	<beans:bean id="authenticationTokenProvider" class="com.syscom.apps.web.security.AuthenticationTokenProvider"/>
+
+	<security:http use-expressions="true" pattern="/login" security="none" create-session="stateless"/>
+	
+	<security:http use-expressions="true" pattern="/customerRegister" security="none" create-session="stateless"/>
+		
+	<security:http use-expressions="true" pattern="/WS-REST/api/**" create-session="stateless">
+		<security:csrf disabled="true"/>
+		<security:custom-filter ref="authenticationTokenFilter" before="FORM_LOGIN_FILTER"/>
+		<security:intercept-url pattern="/WS-REST/api/**" access="isAuthenticated()" />
+		<security:form-login login-page="/login"/>
+	</security:http>
+
+	<beans:bean id="authenticationTokenFilter" class="com.syscom.apps.web.security.AuthenticationTokenFilter">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+	</beans:bean>
+
+	<!-- Authentication manager -->
+	<security:authentication-manager alias="authenticationManager">
+		<security:authentication-provider ref="authenticationTokenProvider"/>
+	</security:authentication-manager>
+
+</beans:beans>

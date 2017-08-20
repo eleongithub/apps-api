@@ -2,6 +2,14 @@ package com.syscom.apps.model;
 
 import java.util.Date;
 
+import com.syscom.apps.dto.CustomerDTO;
+import com.syscom.apps.model.referential.Role;
+
+/**
+ * Classe des utilisateurs
+ * 
+ * @author Eric LEGBA
+ */
 public class Customer extends Person {
 
 	/**
@@ -16,9 +24,19 @@ public class Customer extends Person {
 	private Date frozenDate;
 	private String originFrozenMsg;
 	private Date lastFailureConnexionDate;
+	private Role role;
 
 	public Customer(){
 		
+	}
+	
+	public Customer(CustomerDTO customerDTO){
+		this.id = customerDTO.getId();
+		this.name = customerDTO.getName();
+		this.firstName = customerDTO.getFirstName();
+		this.mail = customerDTO.getMail();
+		this.phone = customerDTO.getPhone();
+		this.password = customerDTO.getPassword();
 	}
 	
 	public Long getId() {
@@ -77,5 +95,12 @@ public class Customer extends Person {
 		this.lastFailureConnexionDate = lastFailureConnexionDate;
 	}
 
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
 
 }

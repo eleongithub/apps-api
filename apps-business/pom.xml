@@ -12,10 +12,11 @@
 	<name>apps-business</name>
 	<packaging>jar</packaging>
 	<url>http://maven.apache.org</url>
-	
+
 	<properties>
+		<commons-codec.version>1.10</commons-codec.version>
 	</properties>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -23,14 +24,22 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>apps-service-interfaces</artifactId>
-			<version>${project.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-collections4</artifactId>
+			<version>${apache-commons-collections}</version>
 		</dependency>
+
+
 		<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>${guava.version}</version>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${apache-commons-io-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>${commons-codec.version}</version>
 		</dependency>
 	</dependencies>
 </project>

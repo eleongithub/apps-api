@@ -12,8 +12,19 @@
 			classpath*:**/*cxf-ws-rest-context.xml
 			classpath*:**/*cxf-ws-soap-context.xml
 			classpath*:**/*spring-config.xml
+			classpath*:**/*spring-security.xml
 		</param-value>
 	</context-param>
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
 
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -34,7 +45,7 @@
 		<servlet-name>CXFServlet</servlet-name>
 		<url-pattern>/WS-REST/*</url-pattern>
 	</servlet-mapping>
-
+	
 	<resource-ref>
 		<res-ref-name>jdbc/im_ws</res-ref-name>
 		<res-type>javax.sql.DataSource</res-type>

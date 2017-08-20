@@ -2,6 +2,12 @@ package com.syscom.apps.model;
 
 import com.syscom.apps.BaseBean;
 
+/**
+ * Classe représentant les données d'une personne
+ * 
+ * @author Eric LEGBA
+ *
+ */
 public class Person extends BaseBean {
 
 	/**
@@ -13,9 +19,9 @@ public class Person extends BaseBean {
 	protected String firstName;
 	protected String mail;
 	protected String phone;
-	protected String login;
 	protected String password;
 
+	
 	public String getName() {
 		return name;
 	}
@@ -46,14 +52,6 @@ public class Person extends BaseBean {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
 	}
 
 	public String getPassword() {

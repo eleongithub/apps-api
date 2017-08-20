@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.syscom.apps.dao.CustomerDao">
-	<insert id="create">
+	<insert id="create" parameterType="com.syscom.apps.model.Customer">
 		INSERT INTO T_CUSTOMER(
 			CU_ID,
-			CU_LOGIN,
 			CU_NAME,
 			CU_FIRST_NAME,
 			CU_MAIL,
@@ -16,13 +15,13 @@
 			CU_FROZEN_DATE,
 			CU_ORIGIN_FROZEN_MSG,
 			CU_LAST_FAILURE_CONNEXION_DATE,
+			CU_ROLE_ID,
 			CRE_DATE,
 			UP_DATE
 		)
 		VALUES
 		(
 			nextval('CUSTOMER_SEQ'),
-			#{customer.login,jdbcType=VARCHAR},
 			#{customer.name,jdbcType=VARCHAR},
 			#{customer.firstName,jdbcType=VARCHAR},
 			#{customer.mail,jdbcType=VARCHAR},
@@ -34,29 +33,63 @@
 			#{customer.frozenDate,jdbcType=TIMESTAMP},
 			#{customer.originFrozenMsg,jdbcType=VARCHAR},
 			#{customer.lastFailureConnexionDate,jdbcType=TIMESTAMP},
+			#{customer.role.id,jdbcType=NUMERIC},
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP
 		)
 	</insert>
+
+	<select id="existsCustomerByMail" resultType="boolean">
+		SELECT EXISTS(SELECT 1 FROM T_CUSTOMER WHERE CU_MAIL=#{mail})
+	</select>
 	
-	<select id="findCustomerById" resultMap="customerResultMap">
+	<select id="existsCustomerByPhone" resultType="boolean">
+		SELECT EXISTS(SELECT 1 FROM T_CUSTOMER WHERE CU_PHONE=#{phone})
+	</select>
+	
+	<select id="existsCustomerByNameFirstName" resultType="boolean">
+		SELECT EXISTS(SELECT 1 FROM T_CUSTOMER WHERE CU_NAME=#{name} AND CU_FIRST_NAME=#{firstName})
+	</select>
+	
+	<select id="findCustomerByMail" resultMap="customerResultMap">
 		<include refid="selectCustomer"></include>
-		WHERE CU_ID=#{id};
+		WHERE CU_MAIL=#{mail};
+	</select>
+	
+	
+	<select id="checkExistsCustomerByCriteria" resultMap="customerResultMap">
+		<include refid="selectCustomer"></include>
+		WHERE 1=1
+		AND CU.CU_PHONE=#{criteria.phone}
+		OR CU.CU_NAME=#{criteria.name}
+		OR CU.CU_FIRST_NAME=#{criteria.firstName}
+		OR CU.CU_MAIL=#{criteria.mail}
 	</select>
 	
 	
 	<select id="findCustomersByCriteria" resultMap="customerResultMap">
 		<include refid="selectCustomer"></include>
-		WHERE 1=1 AND
-			CU.CU_LOGIN=#{criteria.login} OR CU.CU_PHONE=#{criteria.phone}
-			OR (CU.CU_NAME=#{criteria.name} AND CU.CU_FIRST_NAME=#{criteria.firstName})
-			OR CU.CU_MAIL=#{criteria.mail};
+		WHERE 1=1
+		<if test="criteria.phone != null">
+			AND CU.CU_PHONE=#{criteria.phone}
+		</if>
+		
+		<if test="criteria.name != null">
+			AND CU.CU_NAME=#{criteria.name}
+		</if>
+		
+		<if test="criteria.firstName != null">
+			AND CU.CU_FIRST_NAME=#{criteria.firstName}
+		</if>
+		
+		<if test="criteria.mail != null">
+			AND CU.CU_MAIL=#{criteria.mail}
+		</if>
 	</select>
-	
+
 	<update id="update">
 		UPDATE T_CUSTOMER
 		SET 
-			CU_LOGIN=#{customer.login},
 			CU_MAIL=#{customer.mail},
 			CU_NAME=#{customer.name},
 			CU_FIRST_NAME=#{customer.firstName},
@@ -77,11 +110,9 @@
 		DELETE FROM T_CUSTOMER WHERE CU_ID=#{id};
 	</delete>
 	
-	
 	<sql id="selectCustomer">
 		SELECT
 			CU.CU_ID AS id,
-			CU.CU_LOGIN AS login,
 			CU.CU_NAME AS name,
 			CU.CU_FIRST_NAME AS firstName,
 			CU.CU_MAIL AS mail,
@@ -94,14 +125,18 @@
 			CU.CU_ORIGIN_FROZEN_MSG AS originFrozenMsg,
 			CU.CU_LAST_FAILURE_CONNEXION_DATE AS lastFailureConnexionDate,
 			CU.CRE_DATE AS createDate,
-			CU.UP_DATE AS updateDate
+			CU.UP_DATE AS updateDate,
+			RO.RO_ID AS roId,
+			RO.RO_CODE AS roCode,
+			RO.RO_NAME AS roName,
+			RO.CRE_DATE AS roCreDate,
+			RO.UP_DATE AS roUpdate
 		FROM 
-			T_CUSTOMER CU
+			T_CUSTOMER CU JOIN T_ROLE RO ON CU.CU_ROLE_ID=RO.RO_ID
 	</sql>
 	
 	<resultMap id="customerResultMap" type="com.syscom.apps.model.Customer">
 		<id property="id" column="id" />
-		<result property="login" column="login" />
 		<result property="mail" column="mail" />
 		<result property="name" column="name" />
 		<result property="firstName" column="firstName" />
@@ -115,7 +150,16 @@
 		<result property="lastFailureConnexionDate" column="lastFailureConnexionDate" />
 		<result property="createDate" column="createDate" />
 		<result property="updateDate" column="updateDate" />
+		<association property="role" resultMap="roleResultMap"/>
 	</resultMap>
-	
+
+	<resultMap id="roleResultMap" type="com.syscom.apps.model.referential.Role">
+		<id property="id" column="roId" />
+		<result property="code" column="roCode" />
+		<result property="name" column="roName" />
+		<result property="createDate" column="roCreDate" />
+		<result property="updateDate" column="roUpdate" />
+	</resultMap>
+		
 
 </mapper>

@@ -1,68 +1,112 @@
 package com.syscom.apps.exception;
 
-import java.util.Arrays;
-import java.util.List;
+
 
 /**
+ * Exception fonctionnelle
  * 
- * @author ELE1638EN
+ * @author Eric LEGBA
  *
  */
-public class BusinessException extends Exception implements SyscomException{
+public class BusinessException extends Exception {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private List<AppsError> errors;
-
-	public BusinessException(AppsError... erreurs) {
-		this.errors = Arrays.asList(erreurs);
+	private int statusCode;
+	
+	private String message;
+	
+	
+	/**
+	 * 
+	 * Constructeur par défaut.
+	 * 
+	 */
+	public BusinessException(){
+		super();
 	}
-
-	public BusinessException(List<AppsError> erreurs) {
-		this.errors = erreurs;
+	
+	/**
+	 * 
+	 * Constructeur.
+	 *  
+	 * @param statusCode code status HTTP.
+	 */
+	public BusinessException(int statusCode){
+		super();
+		this.statusCode = statusCode;
 	}
-
-	@Override
-	public List<AppsError> getErrors() {
-		return errors;
+	
+	/**
+	 * Constructeur.
+	 *
+	 * @param message of exception.
+	 */
+	public BusinessException(String message) {
+		super(message);
+		this.message = message;
+	}
+	
+	/**
+	 * 
+	 * Constructeur.
+	 *  
+	 * @param statusCode code status HTTP.
+	 * @param message of exception.
+	 */
+	public BusinessException(int statusCode, String message){
+		super(message);
+		this.statusCode = statusCode;
+		this.message = message;
 	}
 	
 
 	/**
-	 * Constructor.
-	 *
-	 * @param message of exception.
-	 */
-	public BusinessException(final String message) {
-		super(message);
-	}
-
-	/**
-	 * Constructor.
+	 * Constructeur.
 	 *
 	 * @param message of exception.
 	 * @param cause of exception.
 	 */
-	public BusinessException(final String message, final Throwable cause) {
+	public BusinessException(String message, final Throwable cause) {
 		super(message, cause);
+		this.message = message;
 	}
 
 	/**
-	 * Constructor.
+	 * Constructeur.
 	 *
 	 * @param cause of exception.
 	 */
-	public BusinessException(final Throwable cause) {
+	public BusinessException(Throwable cause) {
 		super(cause);
 	}
 
+	
 	/** {@inheritDoc} */
 	@Override
 	public synchronized Throwable initCause(Throwable cause) {
 		return super.initCause(this);
 	}
+
+	@Override
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
+	}
+
 
 }

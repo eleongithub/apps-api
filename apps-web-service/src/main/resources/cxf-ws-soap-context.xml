@@ -14,10 +14,9 @@
 	<!-- <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" /> -->
 	<!-- <import resource="classpath:META-INF/cxf/cxf-servlet.xml" /> --> 
 	
-	<bean id="customerWS" class="com.syscom.apps.web.service.soap.CustomerWebServiceImpl" />
+	<bean id="customerWS" class="com.syscom.apps.web.service.v1.soap.CustomerSOAPEndPoint" />
 
-	<jaxws:endpoint id="customerWebService" implementor="#customerWS" address="/ICustomerWebService"
-		implementorClass="com.syscom.apps.service.interfaces.CustomerService">
+	<jaxws:endpoint id="customerWebService" implementor="#customerWS" address="/ICustomerWebService">
 	</jaxws:endpoint>
 
 </beans>

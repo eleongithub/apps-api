@@ -13,6 +13,11 @@
   <properties>
   </properties>
   <dependencies>
+	<dependency>
+	    <groupId>javax.activation</groupId>
+	    <artifactId>activation</artifactId>
+	    <version>${javax-activation-version}</version>
+	</dependency>
  
   </dependencies>
 </project>

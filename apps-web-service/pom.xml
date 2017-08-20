@@ -14,6 +14,9 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<swagger-version>1.5.9</swagger-version>
+		<springfox-swagger2.version>2.6.1</springfox-swagger2.version>
+		<swagger-ui.version>2.0.12</swagger-ui.version>
 	</properties>
 
 	<dependencies>
@@ -86,6 +89,30 @@
 			<version>${spring.version}</version>
 		</dependency>
 
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>${spring-security.version}</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.apache.cxf</groupId>
 			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
@@ -120,6 +147,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>${fasterxml-jackson.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-guava</artifactId>
 			<version>${fasterxml-jackson.version}</version>
@@ -134,12 +167,6 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.module</groupId>
 			<artifactId>jackson-module-jsonSchema</artifactId>
-			<version>${fasterxml-jackson.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-annotations</artifactId>
 			<version>${fasterxml-jackson.version}</version>
 		</dependency>
 
@@ -167,6 +194,18 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		
 		<!-- Tests -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -197,14 +236,24 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.21</version>
+			<version>${slf4j-version}</version>
 			<type>jar</type>
 		</dependency>
+
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.21</version>
+			<version>${slf4j-version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.dbmaintain</groupId>
+			<artifactId>dbmaintain</artifactId>
+			<version>2.2</version>
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 
 
@@ -291,21 +340,14 @@
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 					<webResources>
-						<!--<resource>
-							<directory>conf/spring</directory>
-							<targetPath>WEB-INF</targetPath>
-							<filtering>false</filtering>
-						</resource>
-						<resource>
-							<directory>conf/cxf</directory>
-							<targetPath>WEB-INF</targetPath>
-							<filtering>false</filtering>
-						</resource>
+						<!--<resource> <directory>conf/spring</directory> <targetPath>WEB-INF</targetPath> 
+							<filtering>false</filtering> </resource> <resource> <directory>conf/cxf</directory> 
+							<targetPath>WEB-INF</targetPath> <filtering>false</filtering> </resource> -->
 						<resource>
 							<directory>conf/tomcat</directory>
 							<targetPath>META-INF</targetPath>
 							<filtering>true</filtering>
-						</resource> -->
+						</resource>
 					</webResources>
 					<filteringDeploymentDescriptors>true</filteringDeploymentDescriptors>
 				</configuration>
@@ -340,7 +382,7 @@
 							<goal>java2ws</goal>
 						</goals>
 						<configuration>
-							<className>com.syscom.apps.service.interfaces.CustomerService</className>
+							<className>com.syscom.apps.web.service.v1.soap.CustomerSOAPEndPoint</className>
 							<serviceName>CustomerWS</serviceName>
 							<outputFile>${project.build.directory}/generated-sources/wsdl/ICustomerWebService.wsdl</outputFile>
 							<genWsdl>true</genWsdl>
@@ -382,18 +424,11 @@
 				</goals> </execution> </executions> </plugin> -->
 		</plugins>
 
-		<!-- <pluginManagement>
-			<plugins>
-				This plugin's configuration is used to store Eclipse m2e settings 
-					only. It has no influence on the Maven build itself.
-				TODO Remove when http://dev.vaadin.com/ticket/14924 is resolved
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-				</plugin>
-			</plugins>
-		</pluginManagement> -->
+		<!-- <pluginManagement> <plugins> This plugin's configuration is used to 
+			store Eclipse m2e settings only. It has no influence on the Maven build itself. 
+			TODO Remove when http://dev.vaadin.com/ticket/14924 is resolved <plugin> 
+			<groupId>org.eclipse.m2e</groupId> <artifactId>lifecycle-mapping</artifactId> 
+			<version>1.0.0</version> </plugin> </plugins> </pluginManagement> -->
 
 	</build>
 

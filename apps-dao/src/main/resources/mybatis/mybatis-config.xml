@@ -5,5 +5,9 @@
 <configuration>
     <mappers>
         <mapper resource="com/syscom/apps/dao/CustomerDao.xml"/>
+        <mapper resource="com/syscom/apps/dao/LogAPIDao.xml"/>
+        <mapper resource="com/syscom/apps/dao/TokenDao.xml"/>
+        <mapper resource="com/syscom/apps/dao/RoleDao.xml"/>
+        <mapper resource="com/syscom/apps/dao/AdvertDao.xml"/>
     </mappers>
 </configuration>

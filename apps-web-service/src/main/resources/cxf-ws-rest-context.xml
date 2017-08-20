@@ -9,19 +9,55 @@
 			http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
 
 	<import resource="classpath:META-INF/cxf/cxf.xml" />
-
+	
 	<cxf:bus>
 		<cxf:features>
 			<cxf:logging />
 		</cxf:features>
 	</cxf:bus>
 
+	<jaxrs:server id="customerLoginRSWebService" address="/login">
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+			<bean class="com.syscom.apps.web.exceptions.mappers.BusinessExceptionMapper" />
+		</jaxrs:providers>
+		<jaxrs:serviceBeans>
+			<bean id="customerLoginEndPoint" class="com.syscom.apps.web.service.v1.rest.CustomerLoginEndPoint" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+	
+	<jaxrs:server id="customerRegisterRSWebService" address="/customerRegister">
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider"/>
+			<bean class="com.syscom.apps.web.exceptions.mappers.BusinessExceptionMapper"/>
+			<bean class="com.syscom.apps.web.exceptions.mappers.TechnicalExceptionMapper"/>
+		</jaxrs:providers>
+		<jaxrs:serviceBeans>
+			<bean id="customerRegisterEndPoint" class="com.syscom.apps.web.service.v1.rest.CustomerRegisterEndPoint" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+	
 	<jaxrs:server id="customerRSWebService" address="/api">
 		<jaxrs:providers>
 			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+			<bean class="com.syscom.apps.web.exceptions.mappers.BusinessExceptionMapper"/>
+			<bean class="com.syscom.apps.web.exceptions.mappers.TechnicalExceptionMapper"/>
 		</jaxrs:providers>
 		<jaxrs:serviceBeans>
-			<bean id="customerEndPoint" class="com.syscom.apps.web.service.rest.CustomerEndPoint" />
+			<bean id="customerEndPoint" class="com.syscom.apps.web.service.v1.rest.CustomerEndPoint"/>
+			<bean id="advertEndPoint" class="com.syscom.apps.web.service.v1.rest.AdvertEndPoint"/>
 		</jaxrs:serviceBeans>
 	</jaxrs:server>
+	
+		<jaxrs:server id="attachmentRSWebService" address="/attachment">
+		<jaxrs:providers>
+			<bean class="org.codehaus.jackson.jaxrs.JacksonJaxbJsonProvider" />
+			<bean class="com.syscom.apps.web.exceptions.mappers.BusinessExceptionMapper" />
+			<bean class="com.syscom.apps.web.exceptions.mappers.TechnicalExceptionMapper"/>
+		</jaxrs:providers>
+		<jaxrs:serviceBeans>
+			<bean id="attachmentEndPoint" class="com.syscom.apps.web.service.v1.rest.AttachmentEndPoint" />
+		</jaxrs:serviceBeans>
+	</jaxrs:server>
+	
 </beans>

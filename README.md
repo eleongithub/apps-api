@@ -1,2 +1,2 @@
-# apps
-Apps public repository.
+# apps-api
+apps-api public repository.

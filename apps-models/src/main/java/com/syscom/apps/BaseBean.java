@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * 
- * @author ELE1638EN
+ * BaseBean
  *
  */
 public class BaseBean implements Serializable {

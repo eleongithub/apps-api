@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syscom.apps.dao.LogAPIDao">
+	<insert id="create">
+		INSERT INTO T_LOG_API(
+			LA_ID,
+			LA_CODE_API,
+			LA_VERSION_API,
+			CRE_DATE,
+			UP_DATE
+		)
+		VALUES
+		(
+			nextval('LOG_API_SEQ'),
+			#{logAPI.codeAPI,jdbcType=VARCHAR},
+			#{logAPI.version,jdbcType=VARCHAR},
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+
+	<select id="findByCode" resultMap="logApiResultMap">
+		SELECT
+			LA.LA_ID AS id,
+			LA.LA_CODE_API AS codeAPI,
+			LA.LA_VERSION_API AS version,
+			LA.CRE_DATE AS createDate,
+			LA.UP_DATE AS updateDate
+		FROM T_LOG_API LA
+		WHERE LA.LA_CODE_API=#{codeAPI};
+	</select>
+	
+	<resultMap id="logApiResultMap" type="com.syscom.apps.model.LogAPI">
+		<id property="id" column="id" />
+		<result property="codeAPI" column="codeAPI" />
+		<result property="version" column="version" />
+		<result property="createDate" column="createDate" />
+		<result property="updateDate" column="updateDate" />
+	</resultMap>
+	
+</mapper>

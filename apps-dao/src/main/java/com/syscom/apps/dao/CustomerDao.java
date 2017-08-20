@@ -6,15 +6,15 @@ import com.syscom.apps.criterias.CustomerCriteria;
 import com.syscom.apps.model.Customer;
 
 /**
+ * DAO pour gérer la persistence des utilisateurs
  * 
- * @author ELE1638EN
+ * @author Eric LEGBA
  *
  */
 public interface CustomerDao {
 	
 	/**
-	 * 
-	 * Insert new customer
+	 * Enregistrer un nouvel utilisateur
 	 * 
 	 * @param customer {@link Customer}
 	 */
@@ -22,42 +22,86 @@ public interface CustomerDao {
 	
 	
 	/**
-	 * 
-	 * Update customer
+	 * Modifier un utilisateur
 	 * 
 	 * @param customer {@link Customer}
+	 * @author Eric LEGBA
 	 */
 	void update(@Param("customer")Customer customer);
 	
 
 	/**
-	 * 
-	 * Delete customer
+	 * Supprimer un utilisateur
 	 * 
 	 * @param id {@link Long}
+	 * @author Eric LEGBA
 	 */
 	void delete(@Param("id")Long id);
 	
+
+	
 	/**
+	 * Rechercher un utilisateur à partir de son mail
 	 * 
-	 * Find customer by ID
-	 * 
-	 * @param id {@link Long}
+	 * @param mail {@link String}
 	 * @return customer
+	 * @author Eric LEGBA
 	 */
-	Customer findCustomerById(@Param("id")Long id);
+	Customer findCustomerByMail(@Param("mail")String mail);
 	
 	
 	/**
-	 * 
-	 * Find customers
+	 * Recherche des utilisateurs à partir de critères
 	 * 
 	 * @param criteria {@link CustomerCriteria}
 	 * @return List of customers
+	 * @author Eric LEGBA
 	 */
 	List<Customer> findCustomersByCriteria(@Param("criteria")CustomerCriteria criteria);
+
+	/**
+	 * Check exist customers
+	 * 
+	 * @param criteria {@link CustomerCriteria}
+	 * @return List of customers
+	 * @author Eric LEGBA
+	 */
+	List<Customer> checkExistsCustomerByCriteria(@Param("criteria")CustomerCriteria criteria);
 	
 	
-	List<Customer> getAll();
+	/**
+	 * Check exist customer by mail
+	 * 
+	 * @param mail 
+	 * @return boolean
+	 * @author Eric LEGBA
+	 */
+	
+	boolean existsCustomerByMail(@Param("mail")String mail);
+	
+	
+	/**
+	 * Check exist customer by phone number
+	 * 
+	 * @param mail 
+	 * @return boolean
+	 * @author Eric LEGBA
+	 */
+	
+	boolean existsCustomerByPhone(@Param("phone")String phone);
+	
+	
+	/**
+	 * Check exist customer by name and first name
+	 * 
+	 * @param name 
+	 * @param firstName 
+	 * @return boolean
+	 * @author Eric LEGBA
+	 */
+	
+	boolean existsCustomerByNameFirstName(@Param("name")String name, @Param("firstName")String firstName);
+	
+	
 
 }

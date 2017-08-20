@@ -24,6 +24,9 @@
 	<!-- Import MyBatis Configuration-->
 	<import resource="classpath:mybatisConfiguration.xml" />
 	
+	<!-- Import Spring-AOP Configuration-->
+	<import resource="classpath:spring-aop.xml" />
+	
 	<!-- Package where Spring's annotations are used -->
 	<context:annotation-config />
 	<context:component-scan base-package="com.syscom.apps" />
@@ -39,11 +42,13 @@
 	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="java:comp/env/im_ws" />
 	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!--  Configure Spring Transactions -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
 
-
-	<!-- Mail Sender -->
-	<!-- <bean id="mailSession" class="org.springframework.jndi.JndiObjectFactoryBean"> 
-		<property name="jndiName" value="java:comp/env/im_mailSource" /> </bean> 
-		<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl"> 
-		<property name="session" ref="mailSession" /> </bean> -->
 </beans>

@@ -2,6 +2,11 @@ package com.syscom.apps.model.referential;
 
 import com.syscom.apps.BaseBean;
 
+/**
+ * 
+ * BaseReferential
+ *
+ */
 public class BaseReferential extends BaseBean{
 
 	/**

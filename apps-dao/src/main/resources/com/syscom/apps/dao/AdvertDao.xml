@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syscom.apps.dao.AdvertDao">
+	<insert id="create">
+		INSERT INTO T_ADVERT(
+			AD_ID,
+			AD_TITLE,
+			AD_DESCRIPTION,
+			AD_PRICE,
+			AD_CUSTOMER_ID,
+			CRE_DATE,
+			UP_DATE
+		)
+		VALUES
+		(
+			nextval('ADVERT_SEQ'),
+			#{advert.title,jdbcType=VARCHAR},
+			#{advert.description,jdbcType=VARCHAR},
+			#{advert.price,jdbcType=FLOAT},
+			#{advert.customer.id,jdbcType=NUMERIC},
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+
+</mapper>

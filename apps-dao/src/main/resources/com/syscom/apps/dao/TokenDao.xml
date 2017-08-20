@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.syscom.apps.dao.TokenDao">
+
+	<insert id="create">
+		INSERT INTO T_TOKEN(
+			TT_ID,
+			TT_ACCESS_TOKEN,
+			TT_EXPIRATION_DATE,
+			TT_CUSTOMER_ID,
+			CRE_DATE,
+			UP_DATE
+		)
+		VALUES
+		(
+			nextval('TOKEN_SEQ'),
+			#{token.accessToken,jdbcType=VARCHAR},
+			#{token.expirationDate,jdbcType=TIMESTAMP},
+			#{token.customer.id,jdbcType=BIGINT},
+			CURRENT_TIMESTAMP,
+			CURRENT_TIMESTAMP
+		)
+	</insert>
+
+	<delete id="deleteExpiredTokens">
+		DELETE FROM T_TOKEN WHERE CURRENT_TIMESTAMP &gt; TT_EXPIRATION_DATE;
+	</delete>
+	
+	<select id="findValidTokenByCustomerId" resultMap="tokenResultMap">
+		SELECT
+			 tok.TT_ID AS id,
+			 tok.TT_ACCESS_TOKEN AS accessToken,
+			 tok.TT_EXPIRATION_DATE AS expirationDate,
+			 tok.TT_CUSTOMER_ID AS customerId,
+			 tok.CRE_DATE AS createDate,
+			 tok.UP_DATE AS updateDate,
+			 CU.CU_ID AS idCustomer,
+			 CU.CU_NAME AS name,
+			 CU.CU_FIRST_NAME AS firstName
+		FROM T_TOKEN tok JOIN T_CUSTOMER CU ON CU.CU_ID=tok.TT_CUSTOMER_ID
+		WHERE CURRENT_TIMESTAMP &lt;= TT_EXPIRATION_DATE AND CU.CU_ID=#{customerId};
+	</select>
+	
+	<select id="findValidTokenByAccessToken" resultMap="tokenResultMap">
+		SELECT
+			 tok.TT_ID AS id,
+			 tok.TT_ACCESS_TOKEN AS accessToken,
+			 tok.TT_EXPIRATION_DATE AS expirationDate,
+			 tok.TT_CUSTOMER_ID AS customerId,
+			 tok.CRE_DATE AS createDate,
+			 tok.UP_DATE AS updateDate,
+			 CU.CU_ID AS idCustomer,
+			 CU.CU_NAME AS name,
+			 CU.CU_FIRST_NAME AS firstName,
+			 RO.RO_ID AS roleId,
+			 RO.RO_CODE AS roleCode,
+			 RO.RO_NAME AS roleName,
+			 FU.FU_ID AS fuId,
+			 FU.FU_CODE AS fuCode,
+			 FU.FU_NAME AS fuName,
+			 FU.CRE_DATE AS fuCreateDate,
+			 FU.UP_DATE AS fuUpdateDate
+		FROM T_TOKEN tok 
+		JOIN T_CUSTOMER CU ON CU.CU_ID=tok.TT_CUSTOMER_ID
+		JOIN T_ROLE RO ON RO.RO_ID=CU.CU_ROLE_ID
+		LEFT JOIN T_ROLE_FUNCTION RF ON RF.RO_ID=RO.RO_ID 
+		LEFT JOIN T_FUNCTION FU ON FU.FU_ID=RF.FU_ID
+		WHERE CURRENT_TIMESTAMP &lt;= TT_EXPIRATION_DATE AND tok.TT_ACCESS_TOKEN=#{accessToken};
+	</select>
+
+	<resultMap id="tokenResultMap" type="com.syscom.apps.model.Token">
+		<id property="id" column="id" />
+		<result property="accessToken" column="accessToken" />
+		<result property="expirationDate" column="expirationDate" />
+		<result property="createDate" column="createDate" />
+		<result property="updateDate" column="updateDate" />
+		<association property="customer" resultMap="customerResultMap"/>
+	</resultMap>
+	
+	<resultMap id="customerResultMap" type="com.syscom.apps.model.Customer">
+		<id property="id" column="idCustomer" />
+		<result property="name" column="name" />
+		<result property="firstName" column="firstName" />
+		<association property="role" resultMap="roleResultMap"/>
+	</resultMap>
+	
+	<resultMap id="roleResultMap" type="com.syscom.apps.model.referential.Role">
+		<id property="id" column="roleId" />
+		<id property="code" column="roleCode" />
+		<id property="name" column="roleName" />
+		<collection property="functions" ofType="com.syscom.apps.model.referential.Function">
+        	<result property="id" column="fuId"/>
+        	<result property="code" column="fuCode" />
+			<result property="name" column="fuName" />
+			<result property="createDate" column="fuCreateDate" />
+			<result property="updateDate" column="fuUpdateDate" />
+    	</collection>
+	</resultMap>
+	
+</mapper>
