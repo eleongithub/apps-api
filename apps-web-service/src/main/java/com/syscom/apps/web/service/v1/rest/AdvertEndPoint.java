@@ -36,7 +36,7 @@ public class AdvertEndPoint extends BaseEndPoint {
 	 */
 	@POST
 	@Secured(Functions.CREATE_ADVERT)
-	@Consumes(MediaType.MULTIPART_FORM_DATA)
+//	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response createAdvert(Advert advert) throws BusinessException{
 		RestPreconditions.checkNotNul(advert);
 		advertService.create(advert);

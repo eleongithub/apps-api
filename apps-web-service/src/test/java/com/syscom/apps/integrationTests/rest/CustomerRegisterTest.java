@@ -32,8 +32,7 @@ public class CustomerRegisterTest extends AbstractWebServiceTest {
 	
 	@Test
 	public void createNullCustomer() throws Exception {
-		CustomerDTO customerDTO = null;
-		HttpURLConnection connection = postRequest("/customerRegister", convertFromObjectToJson(customerDTO));
+		HttpURLConnection connection = postRequest("/customerRegister", convertFromObjectToJson(null));
 		Assertions.assertThat(connection.getResponseCode()).isEqualTo(Response.Status.BAD_REQUEST.getStatusCode());
 	}
 	
