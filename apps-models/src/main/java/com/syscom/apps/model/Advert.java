@@ -1,8 +1,5 @@
 package com.syscom.apps.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.syscom.apps.BaseBean;
 
 /**
@@ -24,15 +21,8 @@ public class Advert extends BaseBean{
 	private String description;
 	private Float price;
 	private Customer customer;
-	private List<Picture> pictures;
 	
-	/**
-	 * Constructeur par défaut
-	 * 
-	 */
-	public Advert(){
-		pictures = new ArrayList<>();
-	}
+
 	
 	public Long getId() {
 		return id;
@@ -74,12 +64,5 @@ public class Advert extends BaseBean{
 		this.customer = customer;
 	}
 
-	public List<Picture> getPictures() {
-		return pictures;
-	}
-
-	public void setPictures(List<Picture> pictures) {
-		this.pictures = pictures;
-	}
 
 }

@@ -13,15 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.base.Joiner;
 import com.syscom.apps.business.service.AdvertService;
-import com.syscom.apps.business.service.FileService;
 import com.syscom.apps.criterias.CustomerCriteria;
 import com.syscom.apps.dao.AdvertDao;
 import com.syscom.apps.dao.CustomerDao;
 import com.syscom.apps.exception.BusinessException;
-import com.syscom.apps.exception.TechnicalException;
 import com.syscom.apps.model.Advert;
 import com.syscom.apps.model.Customer;
-import com.syscom.apps.model.Picture;
 
 /** {@inheritDoc} */
 @Service("advertService")
@@ -34,9 +31,6 @@ public class AdvertServiceImpl extends BaseService implements AdvertService {
 
 	@Autowired
 	private CustomerDao customerDao;
-	
-	@Autowired
-	private FileService fileService;
 	
 
 	/** {@inheritDoc} 
@@ -63,18 +57,7 @@ public class AdvertServiceImpl extends BaseService implements AdvertService {
 			throw new BusinessException(getMessage("create.advert.unknown.customer"));
 		}
 		advert.setCustomer(customers.get(0));
-		advertDao.create(advert);
-
-		List<Picture> pictures = advert.getPictures();
-		if(CollectionUtils.isNotEmpty(pictures)){
-			pictures.forEach(picture ->{
-				try {
-					fileService.createFileResource(picture.getName(), picture.getDataHandler());
-				} catch (IOException exception) {
-					throw new TechnicalException(exception);
-				}
-			});
-		}
+		advertDao.create(advert);	
 		
 	}
 

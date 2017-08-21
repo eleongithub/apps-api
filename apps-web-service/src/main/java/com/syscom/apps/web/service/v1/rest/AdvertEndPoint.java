@@ -6,11 +6,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Component;
-
 import com.syscom.apps.business.service.AdvertService;
 import com.syscom.apps.exception.BusinessException;
 import com.syscom.apps.model.Advert;
@@ -36,7 +34,6 @@ public class AdvertEndPoint extends BaseEndPoint {
 	 */
 	@POST
 	@Secured(Functions.CREATE_ADVERT)
-//	@Consumes(MediaType.MULTIPART_FORM_DATA)
 	public Response createAdvert(Advert advert) throws BusinessException{
 		RestPreconditions.checkNotNul(advert);
 		advertService.create(advert);
