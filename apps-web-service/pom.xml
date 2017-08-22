@@ -392,26 +392,7 @@
 				</executions>
 			</plugin>
 
-			<!-- <plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<id>build-ws-dist-tar</id>
-						<phase>install</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<inherited>false</inherited>
-						<configuration>
-							<descriptors>
-								<descriptor>src/main/assemblies/apps-web-service.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin> -->
+			
 			<!-- cxf-codegen-plugin . Use Only if you want to generate Code source 
 				from WSDL -->
 			<!-- <plugin> <groupId>org.apache.cxf</groupId> <artifactId>cxf-codegen-plugin</artifactId> 
