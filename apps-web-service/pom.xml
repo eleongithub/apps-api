@@ -205,7 +205,7 @@
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.version}</version>
 		</dependency>
-		
+
 		<!-- Tests -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
@@ -392,7 +392,7 @@
 				</executions>
 			</plugin>
 
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<version>2.6</version>
@@ -411,7 +411,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 			<!-- cxf-codegen-plugin . Use Only if you want to generate Code source 
 				from WSDL -->
 			<!-- <plugin> <groupId>org.apache.cxf</groupId> <artifactId>cxf-codegen-plugin</artifactId> 
