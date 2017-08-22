@@ -405,7 +405,6 @@
 						</goals>
 						<inherited>false</inherited>
 						<configuration>
-							<finalName>${project.artifactId}-${env}${project.version}</finalName>
 							<descriptors>
 								<descriptor>src/main/assemblies/apps-web-service.xml</descriptor>
 							</descriptors>
