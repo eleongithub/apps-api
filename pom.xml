@@ -20,10 +20,11 @@
 	<!-- The release process will interact with the Source Control of the project. 
 		That's why we define the <scm> element here in our pom.xml -->
 	<scm>
-		<connection>scm:git:https://github.com/eleongithub/apps-api.git</connection>
-		<url>https://github.com/eleongithub/apps</url>
-		<developerConnection>scm:git:https://github.com/eleongithub/apps-api.git</developerConnection>
+		<connection>scm:git:git@github.com:eleongithub/apps-api.git</connection>
+		<url>scm:git:git@github.com:eleongithub/apps-api.git</url>
+		<developerConnection>cm:git:git@github.com:eleongithub/apps-api.git</developerConnection>
 	</scm>
+    
 
 	<!-- In order for Maven to make release to a Nexus server, we define here 
 		the repository information with <distributionManagement> element -->
