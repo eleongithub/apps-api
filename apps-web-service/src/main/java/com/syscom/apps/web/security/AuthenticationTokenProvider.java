@@ -3,7 +3,6 @@ package com.syscom.apps.web.security;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -12,7 +11,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-
 import com.syscom.apps.business.service.TokenService;
 import com.syscom.apps.dto.TokenDTO;
 import com.syscom.apps.dto.referentiel.FunctionDTO;
