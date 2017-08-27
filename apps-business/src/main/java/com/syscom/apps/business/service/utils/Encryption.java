@@ -54,7 +54,7 @@ public class Encryption implements Serializable {
 	 * 
 	 * From a base 64 representation, returns the corresponding byte[]
 	 * 
-	 * @param {@link String} data The base64 representation
+	 * @param data {@link String} data The base64 representation
 	 * @return byte[]
 	 * @author Eric LEGBA
 	 */
