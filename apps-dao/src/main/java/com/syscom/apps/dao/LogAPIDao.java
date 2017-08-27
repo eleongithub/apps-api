@@ -15,7 +15,7 @@ public interface LogAPIDao {
 	/**
 	 * Enregistrer en BDD un log d'API
 	 * 
-	 * @param customer {@link LogAPI}
+	 * @param logAPI {@link LogAPI}
 	 * @author Eric LEGBA
 	 */
 	void create(@Param("logAPI")LogAPI logAPI);

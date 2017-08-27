@@ -13,7 +13,7 @@ public interface AdvertDao {
 	/**
 	 * Créer une nouvelle annonce
 	 * 
-	 * @param Advert {@link Advert}
+	 * @param advert {@link Advert}
 	 * @author Eric LEGBA
 	 */
 	void create(@Param("advert")Advert advert);
