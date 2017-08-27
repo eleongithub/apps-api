@@ -2,7 +2,6 @@ package com.syscom.apps.business.service.impl;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +32,9 @@ public class AdvertServiceImpl extends BaseService implements AdvertService {
 	private CustomerDao customerDao;
 	
 
-	/** {@inheritDoc} 
-	 * @throws IOException */
+	/**
+	 * {@inheritDoc} 
+	 */
 	@Override
 	public void create(Advert advert) throws BusinessException {
 		List<String> appsErrors = this.checkInputDatas(advert);

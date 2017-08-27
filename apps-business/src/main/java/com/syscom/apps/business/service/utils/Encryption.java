@@ -52,11 +52,8 @@ public class Encryption implements Serializable {
 
 	/**
 	 * 
-	 * From a base 64 representation, returns the corresponding byte[]
-	 * 
-	 * @param data {@link String} data The base64 representation
-	 * @return byte[]
-	 * @author Eric LEGBA
+	 * @param data
+	 * @return
 	 */
 	public byte[] base64ToByte(String data) {
 		Base64 decoder = new Base64();
@@ -66,12 +63,8 @@ public class Encryption implements Serializable {
 
 	/**
 	 * 
-	 * From a byte[] returns a base 64 representation
-	 * 
 	 * @param data
-	 *            byte[]
-	 * @return {@link String}
-	 * @author Eric LEGBA
+	 * @return
 	 */
 	public String byteToBase64(byte[] data) {
 		Base64 encoder = new Base64();
@@ -98,10 +91,9 @@ public class Encryption implements Serializable {
 
 	/**
 	 * 
-	 * @param {@link String} password
-	 * @return {@link Credentials} credentials
+	 * @param password
+	 * @return
 	 * @throws NoSuchAlgorithmException
-	 * @author Eric LEGBA
 	 */
 	public Credentials encrypt(String password) throws NoSuchAlgorithmException {
 		// Use a secure Random
@@ -128,7 +120,7 @@ public class Encryption implements Serializable {
 
 	/**
 	 * 
-	 * @return {@link String}
+	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
 	public String createTokenReinitMDP() throws NoSuchAlgorithmException {
@@ -146,13 +138,11 @@ public class Encryption implements Serializable {
 
 	/**
 	 * 
-	 * Method to hash a password with salt by algorithm
-	 * 
-	 * @param {@link Integer} iterationNb number of iteration
-	 * @param {@link String} password the initial password which will be hash
-	 * @param byte[] salt the salt
-	 * @return byte[]
-	 * @author Eric LEGBA
+	 * @param iterationNb
+	 * @param password
+	 * @param salt
+	 * @return
+	 * @throws NoSuchAlgorithmException
 	 */
 	private byte[] getHash(int iterationNb, String password, byte[] salt)
 			throws NoSuchAlgorithmException {
