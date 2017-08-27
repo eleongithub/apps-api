@@ -19,11 +19,17 @@
 
 	<!-- The release process will interact with the Source Control of the project. 
 		That's why we define the <scm> element here in our pom.xml -->
-	<scm>
+	<!-- <scm>
 		<connection>scm:git:git@github.com:eleongithub/apps-api.git</connection>
 		<url>scm:git:git@github.com:eleongithub/apps-api.git</url>
 		<developerConnection>scm:git:git@github.com:eleongithub/apps-api.git</developerConnection>
-	</scm>
+	</scm> -->
+	
+	 <scm>
+        <connection>scm:git:https://github.com/eleongithub/apps-api.git</connection>
+        <developerConnection>scm:git:https://github.com/eleongithub/apps-api.git</developerConnection>
+        <url>https://github.com/eleongithub/apps-api</url>
+     </scm>
     
 	<!-- In order for Maven to make release to a Nexus server, we define here 
 		the repository information with <distributionManagement> element -->
@@ -39,6 +45,7 @@
 			<url>http://192.168.1.97:9081/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
+	    
     
 	<properties>
 		<project.encoding>UTF-8</project.encoding>
