@@ -22,7 +22,7 @@
 	<scm>
 		<connection>scm:git:git@github.com:eleongithub/apps-api.git</connection>
 		<url>scm:git:git@github.com:eleongithub/apps-api.git</url>
-		<developerConnection>cm:git:git@github.com:eleongithub/apps-api.git</developerConnection>
+		<developerConnection>scm:git:git@github.com:eleongithub/apps-api.git</developerConnection>
 	</scm>
     
 	<!-- In order for Maven to make release to a Nexus server, we define here 
