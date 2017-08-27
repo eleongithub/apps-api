@@ -1,6 +1,10 @@
 package com.syscom.apps.dto.referentiel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import com.syscom.apps.model.referential.Role;
 
 public class RoleDTO implements Serializable{
 
@@ -11,6 +15,21 @@ public class RoleDTO implements Serializable{
 	
 	private String name;
 	private String code;
+	private List<FunctionDTO> functionDTOs;
+
+	public RoleDTO(){
+		functionDTOs = new ArrayList<>();	
+	}
+	
+	public RoleDTO(Role role){
+		this.name = role.getName();
+		this.code = role.getCode();
+		functionDTOs = new ArrayList<>();
+		if(role.getFunctions()!=null){
+			functionDTOs = role.getFunctions().stream().map(function -> new FunctionDTO(function))
+			                   				  .collect(Collectors.toList());
+		}
+	}
 	
 	public String getName() {
 		return name;
@@ -28,4 +47,11 @@ public class RoleDTO implements Serializable{
 		this.code = code;
 	}
 
+	public List<FunctionDTO> getFunctionDTOs() {
+		return functionDTOs;
+	}
+
+	public void setFunctionDTOs(List<FunctionDTO> functionDTOs) {
+		this.functionDTOs = functionDTOs;
+	}
 }

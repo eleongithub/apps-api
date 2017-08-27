@@ -155,8 +155,8 @@ public abstract class AbstractWebServiceTest extends AbstractTest{
 		token.setCustomer(customerResult);
 		Calendar now = Calendar.getInstance();
 		now.add(Calendar.MINUTE, 60);
-		token.setExpirationDate(now.getTime());
-		token.setAccessToken(TOKEN_ACCESS);
+		token.setExpiration(now.getTime());
+		token.setValue(TOKEN_ACCESS);
 		tokenDao.create(token);
 	}
 	

@@ -6,6 +6,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ws.rs.core.HttpHeaders;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -19,9 +20,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthenticationTokenFilter extends AbstractAuthenticationProcessingFilter {
-
-	private static final String AUTHORIZATION = "Authorization";
-
 
 	public AuthenticationTokenFilter() {
 		super("/api/**");
@@ -44,12 +42,13 @@ public class AuthenticationTokenFilter extends AbstractAuthenticationProcessingF
 	public Authentication attemptAuthentication(HttpServletRequest request,
 			HttpServletResponse response) throws AuthenticationException,
 			IOException, ServletException {
-		String accessToken = request.getHeader(AUTHORIZATION);
-		if (accessToken == null) {
+		
+		String authorization = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if (authorization == null) {
 			throw new PreAuthenticatedCredentialsNotFoundException(
 					"No token found in request headers. Unauthorized access.");
 		}
-		JwtAuthenticationToken authRequest = new JwtAuthenticationToken(accessToken);
+		JwtAuthenticationToken authRequest = new JwtAuthenticationToken(authorization);
 		
 		return getAuthenticationManager().authenticate(authRequest);
 	}

@@ -13,8 +13,6 @@ public class AdvertDTO implements Serializable{
 	private String description;
 	private Float price;
 	private CustomerDTO customerDTO;
-	protected String customerMail;
-	
 	
 	
 	public String getTitle() {
@@ -39,14 +37,6 @@ public class AdvertDTO implements Serializable{
 	
 	public void setPrice(Float price) {
 		this.price = price;
-	}
-	
-	public String getCustomerMail() {
-		return customerMail;
-	}
-	
-	public void setCustomerMail(String customerMail) {
-		this.customerMail = customerMail;
 	}
 	
 	

@@ -3,19 +3,17 @@ package com.syscom.apps.business.service;
 import com.syscom.apps.model.LogAPI;
 
 /**
- * Service dédié aux logs des APIs
- * 
+ * Contrat d'interface du service des logs des APIs
  * 
  * @author Eric LEGBA
- *
  */
 public interface LogAPIService {
 	
 	/**
 	 * 
-	 * Insert Log into the Database
+	 * Enregistrer un log d'API
 	 * 
-	 * @param logAPI {@link LogAPI}
+	 * @param logAPI les informations de l'API à enregistrer {@link LogAPI}
 	 * @author Eric LEGBA
 	 */
 	void create(LogAPI logAPI);
@@ -24,8 +22,8 @@ public interface LogAPIService {
 	 * 
 	 * Recherche un Log d'API à partir d'un code
 	 * 
-	 * @param codeAPI {@link String}
-	 * @return LogAPI {@link LogAPI}
+	 * @param codeAPI code de l'API {@link String}
+	 * @return LogAPI log API correspondant {@link LogAPI}
 	 * @author Eric LEGBA
 	 */
 	LogAPI findByCode(String codeAPI);

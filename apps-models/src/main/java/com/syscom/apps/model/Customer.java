@@ -1,7 +1,5 @@
 package com.syscom.apps.model;
 
-import java.util.Date;
-
 import com.syscom.apps.dto.CustomerDTO;
 import com.syscom.apps.model.referential.Role;
 
@@ -19,11 +17,6 @@ public class Customer extends Person {
 	
 	private Long id;
 	private String salt;
-	private boolean changePassword;
-	private boolean frozenAccount;
-	private Date frozenDate;
-	private String originFrozenMsg;
-	private Date lastFailureConnexionDate;
 	private Role role;
 
 	public Customer(){
@@ -53,46 +46,6 @@ public class Customer extends Person {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
-	}
-
-	public boolean isChangePassword() {
-		return changePassword;
-	}
-
-	public void setChangePassword(boolean changePassword) {
-		this.changePassword = changePassword;
-	}
-
-	public Date getFrozenDate() {
-		return frozenDate;
-	}
-
-	public void setFrozenDate(Date frozenDate) {
-		this.frozenDate = frozenDate;
-	}
-
-	public String getOriginFrozenMsg() {
-		return originFrozenMsg;
-	}
-
-	public boolean isFrozenAccount() {
-		return frozenAccount;
-	}
-
-	public void setFrozenAccount(boolean frozenAccount) {
-		this.frozenAccount = frozenAccount;
-	}
-
-	public void setOriginFrozenMsg(String originFrozenMsg) {
-		this.originFrozenMsg = originFrozenMsg;
-	}
-	
-	public Date getLastFailureConnexionDate() {
-		return lastFailureConnexionDate;
-	}
-
-	public void setLastFailureConnexionDate(Date lastFailureConnexionDate) {
-		this.lastFailureConnexionDate = lastFailureConnexionDate;
 	}
 
 	public Role getRole() {

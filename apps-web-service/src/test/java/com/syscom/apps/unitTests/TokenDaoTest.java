@@ -48,15 +48,15 @@ public class TokenDaoTest extends AbstractTest{
 		Customer customer = customers.get(0);
 		Token token = new Token();
 		token.setCustomer(customer);
-		token.setExpirationDate(new Date());
+		token.setExpiration(new Date());
 		tokenDao.create(token);
 	}
 
 	@Test(expected = DataIntegrityViolationException.class)
 	public void createTokenWithoutCustomer(){
 		Token token = new Token();
-		token.setExpirationDate(new Date());
-		token.setAccessToken(ACCESS_TOKEN);
+		token.setExpiration(new Date());
+		token.setValue(ACCESS_TOKEN);
 		tokenDao.create(token);
 	}
 
@@ -67,8 +67,8 @@ public class TokenDaoTest extends AbstractTest{
 		Customer customer = customers.get(0);
 		Token token = new Token();
 		token.setCustomer(customer);
-		token.setExpirationDate(new Date());
-		token.setAccessToken(ACCESS_TOKEN);
+		token.setExpiration(new Date());
+		token.setValue(ACCESS_TOKEN);
 		tokenDao.create(token);
 	}
 	
@@ -81,11 +81,11 @@ public class TokenDaoTest extends AbstractTest{
 		token.setCustomer(customer);
 		Calendar now = Calendar.getInstance();
 		now.add(Calendar.MINUTE, -5);
-		token.setExpirationDate(now.getTime());
-		token.setAccessToken(ACCESS_TOKEN);
+		token.setExpiration(now.getTime());
+		token.setValue(ACCESS_TOKEN);
 		tokenDao.create(token);
 		tokenDao.deleteExpiredTokens();
-		Token findToken = tokenDao.findValidTokenByAccessToken(ACCESS_TOKEN);
+		Token findToken = tokenDao.findValidTokenByValue(ACCESS_TOKEN);
 		assertThat(findToken).isNull();
 	}
 	
@@ -99,12 +99,12 @@ public class TokenDaoTest extends AbstractTest{
 		token.setCustomer(customer);
 		Calendar now = Calendar.getInstance();
 		now.add(Calendar.MINUTE, 5);
-		token.setExpirationDate(now.getTime());
-		token.setAccessToken(ACCESS_TOKEN);
+		token.setExpiration(now.getTime());
+		token.setValue(ACCESS_TOKEN);
 		tokenDao.create(token);
 		Token findToken = tokenDao.findValidTokenByCustomerId(customer.getId());
 		assertThat(findToken).isNotNull();
-		assertThat(findToken.getAccessToken()).isEqualTo(ACCESS_TOKEN);
+		assertThat(findToken.getValue()).isEqualTo(ACCESS_TOKEN);
 		assertThat(findToken.getCustomer()).isNotNull();
 		assertThat(findToken.getCustomer().getId()).isEqualTo(customer.getId());
 	}

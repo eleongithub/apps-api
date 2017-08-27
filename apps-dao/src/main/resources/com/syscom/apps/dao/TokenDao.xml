@@ -5,8 +5,8 @@
 	<insert id="create">
 		INSERT INTO T_TOKEN(
 			TT_ID,
-			TT_ACCESS_TOKEN,
-			TT_EXPIRATION_DATE,
+			TT_VALUE,
+			TT_EXPIRATION,
 			TT_CUSTOMER_ID,
 			CRE_DATE,
 			UP_DATE
@@ -14,8 +14,8 @@
 		VALUES
 		(
 			nextval('TOKEN_SEQ'),
-			#{token.accessToken,jdbcType=VARCHAR},
-			#{token.expirationDate,jdbcType=TIMESTAMP},
+			#{token.value,jdbcType=VARCHAR},
+			#{token.expiration,jdbcType=TIMESTAMP},
 			#{token.customer.id,jdbcType=BIGINT},
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP
@@ -23,32 +23,32 @@
 	</insert>
 
 	<delete id="deleteExpiredTokens">
-		DELETE FROM T_TOKEN WHERE CURRENT_TIMESTAMP &gt; TT_EXPIRATION_DATE;
+		DELETE FROM T_TOKEN WHERE CURRENT_TIMESTAMP &gt; TT_EXPIRATION;
 	</delete>
 	
 	<select id="findValidTokenByCustomerId" resultMap="tokenResultMap">
 		SELECT
-			 tok.TT_ID AS id,
-			 tok.TT_ACCESS_TOKEN AS accessToken,
-			 tok.TT_EXPIRATION_DATE AS expirationDate,
-			 tok.TT_CUSTOMER_ID AS customerId,
-			 tok.CRE_DATE AS createDate,
-			 tok.UP_DATE AS updateDate,
+			 token.TT_ID AS id,
+			 token.TT_VALUE AS value,
+			 token.TT_EXPIRATION AS expiration,
+			 token.TT_CUSTOMER_ID AS customerId,
+			 token.CRE_DATE AS createDate,
+			 token.UP_DATE AS updateDate,
 			 CU.CU_ID AS idCustomer,
 			 CU.CU_NAME AS name,
 			 CU.CU_FIRST_NAME AS firstName
-		FROM T_TOKEN tok JOIN T_CUSTOMER CU ON CU.CU_ID=tok.TT_CUSTOMER_ID
-		WHERE CURRENT_TIMESTAMP &lt;= TT_EXPIRATION_DATE AND CU.CU_ID=#{customerId};
+		FROM T_TOKEN token JOIN T_CUSTOMER CU ON CU.CU_ID=token.TT_CUSTOMER_ID
+		WHERE CURRENT_TIMESTAMP &lt;= token.TT_EXPIRATION AND CU.CU_ID=#{customerId};
 	</select>
 	
-	<select id="findValidTokenByAccessToken" resultMap="tokenResultMap">
+	<select id="findValidTokenByValue" resultMap="tokenResultMap">
 		SELECT
-			 tok.TT_ID AS id,
-			 tok.TT_ACCESS_TOKEN AS accessToken,
-			 tok.TT_EXPIRATION_DATE AS expirationDate,
-			 tok.TT_CUSTOMER_ID AS customerId,
-			 tok.CRE_DATE AS createDate,
-			 tok.UP_DATE AS updateDate,
+			 token.TT_ID AS id,
+			 token.TT_VALUE AS value,
+			 token.TT_EXPIRATION AS expiration,
+			 token.TT_CUSTOMER_ID AS customerId,
+			 token.CRE_DATE AS createDate,
+			 token.UP_DATE AS updateDate,
 			 CU.CU_ID AS idCustomer,
 			 CU.CU_NAME AS name,
 			 CU.CU_FIRST_NAME AS firstName,
@@ -60,18 +60,18 @@
 			 FU.FU_NAME AS fuName,
 			 FU.CRE_DATE AS fuCreateDate,
 			 FU.UP_DATE AS fuUpdateDate
-		FROM T_TOKEN tok 
-		JOIN T_CUSTOMER CU ON CU.CU_ID=tok.TT_CUSTOMER_ID
+		FROM T_TOKEN token 
+		JOIN T_CUSTOMER CU ON CU.CU_ID=token.TT_CUSTOMER_ID
 		JOIN T_ROLE RO ON RO.RO_ID=CU.CU_ROLE_ID
 		LEFT JOIN T_ROLE_FUNCTION RF ON RF.RO_ID=RO.RO_ID 
 		LEFT JOIN T_FUNCTION FU ON FU.FU_ID=RF.FU_ID
-		WHERE CURRENT_TIMESTAMP &lt;= TT_EXPIRATION_DATE AND tok.TT_ACCESS_TOKEN=#{accessToken};
+		WHERE CURRENT_TIMESTAMP &lt;= token.TT_EXPIRATION AND token.TT_VALUE=#{value};
 	</select>
 
 	<resultMap id="tokenResultMap" type="com.syscom.apps.model.Token">
 		<id property="id" column="id" />
-		<result property="accessToken" column="accessToken" />
-		<result property="expirationDate" column="expirationDate" />
+		<result property="value" column="value" />
+		<result property="expiration" column="expiration" />
 		<result property="createDate" column="createDate" />
 		<result property="updateDate" column="updateDate" />
 		<association property="customer" resultMap="customerResultMap"/>

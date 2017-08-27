@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import com.syscom.apps.model.LogAPI;
 
 /**
- * DAO pour gérer la persistence des logs API en BDD
+ * Contrat d'interface du DAO pour gérer la persistence des logs API en BDD
  * 
  * @author Eric LEGBA
  *
@@ -13,8 +13,7 @@ import com.syscom.apps.model.LogAPI;
 public interface LogAPIDao {
 
 	/**
-	 * 
-	 * Stocker en BDD un nouvel log d'API
+	 * Enregistrer en BDD un log d'API
 	 * 
 	 * @param customer {@link LogAPI}
 	 * @author Eric LEGBA

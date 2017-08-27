@@ -6,7 +6,7 @@ import com.syscom.apps.criterias.CustomerCriteria;
 import com.syscom.apps.model.Customer;
 
 /**
- * DAO pour gérer la persistence des utilisateurs
+ * Contrat d'interface du DAO pour gérer la persistence des utilisateurs
  * 
  * @author Eric LEGBA
  *
@@ -24,17 +24,15 @@ public interface CustomerDao {
 	/**
 	 * Modifier un utilisateur
 	 * 
-	 * @param customer {@link Customer}
-	 * @author Eric LEGBA
+	 * @param customer utilisateur à modifier {@link Customer}
 	 */
 	void update(@Param("customer")Customer customer);
 	
 
 	/**
-	 * Supprimer un utilisateur
+	 * Supprimer un utilisateur à partir de son identifiant
 	 * 
-	 * @param id {@link Long}
-	 * @author Eric LEGBA
+	 * @param id {@link Long} de l'utilisateur
 	 */
 	void delete(@Param("id")Long id);
 	
@@ -43,9 +41,8 @@ public interface CustomerDao {
 	/**
 	 * Rechercher un utilisateur à partir de son mail
 	 * 
-	 * @param mail {@link String}
-	 * @return customer
-	 * @author Eric LEGBA
+	 * @param mail adresse mail de l'utilisateur {@link String} 
+	 * @return customer utilisateur {@link Customer}
 	 */
 	Customer findCustomerByMail(@Param("mail")String mail);
 	
@@ -53,51 +50,38 @@ public interface CustomerDao {
 	/**
 	 * Recherche des utilisateurs à partir de critères
 	 * 
-	 * @param criteria {@link CustomerCriteria}
-	 * @return List of customers
+	 * @param criteria critères de recherche des utilisateurs {@link CustomerCriteria}
+	 * @return List of customers {@link Customer}
 	 * @author Eric LEGBA
 	 */
 	List<Customer> findCustomersByCriteria(@Param("criteria")CustomerCriteria criteria);
-
-	/**
-	 * Check exist customers
-	 * 
-	 * @param criteria {@link CustomerCriteria}
-	 * @return List of customers
-	 * @author Eric LEGBA
-	 */
-	List<Customer> checkExistsCustomerByCriteria(@Param("criteria")CustomerCriteria criteria);
-	
 	
 	/**
-	 * Check exist customer by mail
+	 * Vérifier si une adresse mail est déjà utilisé par un autre utilisateur.
 	 * 
-	 * @param mail 
+	 * @param mail adresse mail à vérifier {@link String}
 	 * @return boolean
-	 * @author Eric LEGBA
 	 */
 	
 	boolean existsCustomerByMail(@Param("mail")String mail);
 	
 	
 	/**
-	 * Check exist customer by phone number
+	 * Vérifier si un numéro de téléphone est déjà utilisé par un autre utilisateur.
 	 * 
-	 * @param mail 
+	 * @param phone numéro de téléphone à vérifier {@link String}
 	 * @return boolean
-	 * @author Eric LEGBA
 	 */
 	
 	boolean existsCustomerByPhone(@Param("phone")String phone);
 	
 	
 	/**
-	 * Check exist customer by name and first name
+	 * Vérifier si un utilisateur ayant un nom et un prénom existe déjà.
 	 * 
-	 * @param name 
-	 * @param firstName 
+	 * @param name  nom de l'utilisateur {@link String}
+	 * @param firstName prénom de l'utilisateur {@link String}
 	 * @return boolean
-	 * @author Eric LEGBA
 	 */
 	
 	boolean existsCustomerByNameFirstName(@Param("name")String name, @Param("firstName")String firstName);

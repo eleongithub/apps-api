@@ -10,11 +10,6 @@
 			CU_SALT,
 			CU_PASSWORD,
 			CU_PHONE,
-			CU_CHANGE_PASSWORD,
-			CU_FROZEN_ACCOUNT,
-			CU_FROZEN_DATE,
-			CU_ORIGIN_FROZEN_MSG,
-			CU_LAST_FAILURE_CONNEXION_DATE,
 			CU_ROLE_ID,
 			CRE_DATE,
 			UP_DATE
@@ -28,11 +23,6 @@
 			#{customer.salt,jdbcType=VARCHAR},
 			#{customer.password,jdbcType=VARCHAR},
 			#{customer.phone,jdbcType=VARCHAR},
-			#{customer.changePassword,jdbcType=BOOLEAN},
-			#{customer.frozenAccount,jdbcType=BOOLEAN},
-			#{customer.frozenDate,jdbcType=TIMESTAMP},
-			#{customer.originFrozenMsg,jdbcType=VARCHAR},
-			#{customer.lastFailureConnexionDate,jdbcType=TIMESTAMP},
 			#{customer.role.id,jdbcType=NUMERIC},
 			CURRENT_TIMESTAMP,
 			CURRENT_TIMESTAMP
@@ -55,17 +45,6 @@
 		<include refid="selectCustomer"></include>
 		WHERE CU_MAIL=#{mail};
 	</select>
-	
-	
-	<select id="checkExistsCustomerByCriteria" resultMap="customerResultMap">
-		<include refid="selectCustomer"></include>
-		WHERE 1=1
-		AND CU.CU_PHONE=#{criteria.phone}
-		OR CU.CU_NAME=#{criteria.name}
-		OR CU.CU_FIRST_NAME=#{criteria.firstName}
-		OR CU.CU_MAIL=#{criteria.mail}
-	</select>
-	
 	
 	<select id="findCustomersByCriteria" resultMap="customerResultMap">
 		<include refid="selectCustomer"></include>
@@ -96,11 +75,6 @@
 			CU_SALT=#{customer.salt},
 			CU_PASSWORD=#{customer.password},
 			CU_PHONE=#{customer.phone},
-			CU_CHANGE_PASSWORD=#{customer.changePassword},
-			CU_FROZEN_ACCOUNT=#{customer.frozenAccount},
-			CU_FROZEN_DATE=#{customer.frozenDate},
-			CU_ORIGIN_FROZEN_MSG=#{customer.originFrozenMsg},
-			CU_LAST_FAILURE_CONNEXION_DATE=#{customer.lastFailureConnexionDate},
 			UP_DATE=CURRENT_TIMESTAMP
 		WHERE
 			CU_ID=#{customer.id};
@@ -119,11 +93,6 @@
 			CU.CU_SALT AS salt,
 			CU.CU_PASSWORD AS password,
 			CU.CU_PHONE AS phone,
-			CU.CU_CHANGE_PASSWORD AS changePassword,
-			CU.CU_FROZEN_ACCOUNT AS frozenAccount,
-			CU.CU_FROZEN_DATE AS frozenDate,
-			CU.CU_ORIGIN_FROZEN_MSG AS originFrozenMsg,
-			CU.CU_LAST_FAILURE_CONNEXION_DATE AS lastFailureConnexionDate,
 			CU.CRE_DATE AS createDate,
 			CU.UP_DATE AS updateDate,
 			RO.RO_ID AS roId,
@@ -143,11 +112,6 @@
 		<result property="password" column="password" />
 		<result property="salt" column="salt" />
 		<result property="phone" column="phone" />
-		<result property="changePassword" column="changePassword" />
-		<result property="frozenAccount" column="frozenAccount" />
-		<result property="frozenDate" column="frozenDate" />
-		<result property="originFrozenMsg" column="originFrozenMsg" />
-		<result property="lastFailureConnexionDate" column="lastFailureConnexionDate" />
 		<result property="createDate" column="createDate" />
 		<result property="updateDate" column="updateDate" />
 		<association property="role" resultMap="roleResultMap"/>

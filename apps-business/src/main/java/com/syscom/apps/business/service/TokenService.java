@@ -1,9 +1,10 @@
 package com.syscom.apps.business.service;
 
+import com.syscom.apps.dto.TokenDTO;
 import com.syscom.apps.model.Token;
 
 /**
- * Service des tokens d'authentification
+ * Contrat d'interface du service des tokens d'authentification
  * 
  * @author Eric LEGBA
  *
@@ -11,12 +12,21 @@ import com.syscom.apps.model.Token;
 public interface TokenService {
 	
 	/**
-	 *Recherche d'un token 
+	 * Recherche d'un token 
 	 *
-	 * @param accessToken
+	 * @param value
 	 * @return {@link Token}
 	 * @author Eric LEGBA
 	 */
-	Token findValidToken(String accessToken);
+	Token findValidToken(String value);
+	
+	/**
+	 * Recherche d'un token 
+	 *
+	 * @param value
+	 * @return {@link Token}
+	 * @author Eric LEGBA
+	 */
+	TokenDTO findToken(String value);
 
 }

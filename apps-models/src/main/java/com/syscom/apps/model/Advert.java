@@ -21,7 +21,6 @@ public class Advert extends BaseBean{
 	private String description;
 	private Float price;
 	private Customer customer;
-	
 
 	
 	public Long getId() {

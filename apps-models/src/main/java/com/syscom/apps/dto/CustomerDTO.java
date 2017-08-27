@@ -1,7 +1,6 @@
 package com.syscom.apps.dto;
 
 import java.io.Serializable;
-
 import com.syscom.apps.dto.referentiel.RoleDTO;
 import com.syscom.apps.model.Customer;
 
@@ -38,7 +37,9 @@ public class CustomerDTO implements Serializable{
 		this.mail = customer.getMail();
 		this.phone = customer.getPhone();
 		this.password = customer.getPassword();
-//		TODO - setter le rôles
+		if(customer.getRole()!=null){
+			roleDTO = new RoleDTO(customer.getRole());
+		}
 	}
 	
 	public RoleDTO getRoleDTO() {

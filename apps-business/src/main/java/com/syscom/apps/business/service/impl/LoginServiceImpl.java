@@ -1,34 +1,35 @@
 package com.syscom.apps.business.service.impl;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
-
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-
 import com.google.common.base.Joiner;
 import com.syscom.apps.business.service.LoginService;
 import com.syscom.apps.business.service.utils.Encryption;
 import com.syscom.apps.criterias.CustomerCriteria;
 import com.syscom.apps.dao.CustomerDao;
 import com.syscom.apps.dao.TokenDao;
-import com.syscom.apps.dto.CustomerDTO;
 import com.syscom.apps.dto.TokenDTO;
 import com.syscom.apps.exception.BusinessException;
 import com.syscom.apps.exception.TechnicalException;
 import com.syscom.apps.model.Customer;
 import com.syscom.apps.model.Token;
 
-/** {@inheritDoc} */
+/**
+ * Implémentation des services d'authentification avec les jetons.
+ * 
+ * @author Eric LEGBA
+ *
+ */
 @Service("loginService")
 @Transactional(rollbackFor=Exception.class)
 public class LoginServiceImpl extends BaseService implements LoginService {
@@ -94,11 +95,11 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 			// 4 - If valid token doesn't exist, create new token and save into the data base
 			if (token == null) {
 				token = new Token();
-				token.setAccessToken(UUID.randomUUID().toString());
+				token.setValue(UUID.randomUUID().toString());
 				token.setCustomer(customer);
 				Calendar now = Calendar.getInstance();
 				now.add(Calendar.MINUTE, ONE_HOUR_IN_MINUTE);
-				token.setExpirationDate(now.getTime());
+				token.setExpiration(now.getTime());
 				tokenDao.create(token);
 			}
 			
@@ -109,20 +110,13 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 	}
 
 	/**
-	 * Conversion d'un objet de token vers le Dto
+	 * Conversion d'un objet de token vers le DTO.
 	 * @param token
 	 * @return {@link TokenDTO}
 	 * @author Eric LEGBA
 	 */
 	private TokenDTO convertToDTO(Token token) {
-		if(token==null){
-			return null;
-		}
-		TokenDTO tokenDTO = new TokenDTO();
-		tokenDTO.setAccessToken(token.getAccessToken());
-		tokenDTO.setExpiration(token.getExpirationDate());
-		tokenDTO.setCustomerDTO(new CustomerDTO(token.getCustomer()));
-		return tokenDTO;
+		return token==null ? null : new TokenDTO(token);
 	}
 
 }

@@ -6,9 +6,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.syscom.apps.business.service.TokenService;
 import com.syscom.apps.dao.TokenDao;
+import com.syscom.apps.dto.TokenDTO;
 import com.syscom.apps.model.Token;
 
-/** {@inheritDoc} */
+/**
+ * Implémentation des services des jetons d'authentification 
+ * 
+ * @author Eric LEGBA
+ */
 @Service
 @Transactional(rollbackFor=Exception.class)
 public class TokenServiceImpl implements TokenService{
@@ -18,9 +23,16 @@ public class TokenServiceImpl implements TokenService{
 	
 	/** {@inheritDoc} */
 	@Override
-	public Token findValidToken(String accessToken) {
+	public Token findValidToken(String value) {
 		tokenDao.deleteExpiredTokens();
-		return tokenDao.findValidTokenByAccessToken(accessToken);
+		return tokenDao.findValidTokenByValue(value);
+	}
+
+	@Override
+	public TokenDTO findToken(String value) {
+		tokenDao.deleteExpiredTokens();
+		Token token = tokenDao.findValidTokenByValue(value);
+		return token ==null ? null : new TokenDTO(token);
 	}
 
 }

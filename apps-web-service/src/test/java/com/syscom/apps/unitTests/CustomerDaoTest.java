@@ -2,14 +2,11 @@ package com.syscom.apps.unitTests;
 
 import static com.syscom.apps.enums.EnumRole.ROLE_CUSTOMER;
 import static org.assertj.core.api.Assertions.assertThat;
-
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-
 import com.syscom.apps.AbstractTest;
 import com.syscom.apps.criterias.CustomerCriteria;
 import com.syscom.apps.dao.CustomerDao;

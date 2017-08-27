@@ -24,8 +24,8 @@ public class Token extends BaseBean{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;	
-	private String accessToken;
-	private Date expirationDate;
+	private String value;
+	private Date expiration;
 	private Customer customer;
 	
 	public Long getId() {
@@ -36,12 +36,12 @@ public class Token extends BaseBean{
 		this.id = id;
 	}
 	
-	public Date getExpirationDate() {
-		return expirationDate;
+	public Date getExpiration() {
+		return expiration;
 	}
 
-	public void setExpirationDate(Date expirationDate) {
-		this.expirationDate = expirationDate;
+	public void setExpiration(Date expiration) {
+		this.expiration = expiration;
 	}
 
 	public Customer getCustomer() {
@@ -52,14 +52,13 @@ public class Token extends BaseBean{
 		this.customer = customer;
 	}
 
-	public String getAccessToken() {
-		return accessToken;
+	public String getValue() {
+		return value;
 	}
-	
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
+
+	public void setValue(String value) {
+		this.value = value;
 	}
-	
 	
 
 }
