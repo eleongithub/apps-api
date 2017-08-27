@@ -50,6 +50,7 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 		Assert.notNull(authorization,"Le credential doit être non nul");
 
 		String credentials = new String(Base64.getDecoder().decode(authorization.getBytes()));
+		
 //		Split login and password tokens
 		String[] tokenizer = StringUtils.split(credentials, ":");
 		if(tokenizer==null || tokenizer.length!=2){
@@ -71,8 +72,6 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 					+ Joiner.on(",").join(appsErrors);
 			throw new BusinessException(message);
 		}
-
-		Token token=null;
 		// 1 - find user by login and password
 		CustomerCriteria criteria = new CustomerCriteria();
 		criteria.setMail(mail);
@@ -91,9 +90,9 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 			// 2 - delete expired tokens before find user's token
 			tokenDao.deleteExpiredTokens();
 			// 3 - find valid token for user
-			token = tokenDao.findValidTokenByCustomerId(customer.getId());
+			Token token = tokenDao.findValidTokenByCustomerId(customer.getId());
 			// 4 - If valid token doesn't exist, create new token and save into the data base
-			if (token == null) {
+			if(token == null) {
 				token = new Token();
 				token.setValue(UUID.randomUUID().toString());
 				token.setCustomer(customer);
@@ -102,11 +101,12 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 				token.setExpiration(now.getTime());
 				tokenDao.create(token);
 			}
+			return convertToDTO(token);
 			
 		}catch (NoSuchAlgorithmException algorithmException){
 			throw new TechnicalException(algorithmException);
 		}
-		return convertToDTO(token);
+		
 	}
 
 	/**

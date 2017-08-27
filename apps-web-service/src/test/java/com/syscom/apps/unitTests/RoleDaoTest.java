@@ -19,7 +19,10 @@ public class RoleDaoTest extends AbstractTest{
 	public void fintRoleByCode(){
 		Role role = roleDao.findRoleByCode(EnumRole.ROLE_CUSTOMER.name());
 		assertThat(role).isNotNull();
+		assertThat(role.getName()).isNotNull();
+		assertThat(role.getFunctions()).isNotNull();
 		assertThat(role.getCode()).isEqualTo(EnumRole.ROLE_CUSTOMER.name());
+		
 	}
 
 }
