@@ -36,7 +36,6 @@ public class TokenDTO implements Serializable{
 		customerDTO.setName(customer.getName());
 		customerDTO.setFirstName(customer.getFirstName());
 		customerDTO.setMail(customer.getMail());
-		customerDTO.setPassword(customer.getPassword());
 		customerDTO.setPhone(customer.getPhone());
 		customerDTO.setRoleDTO(new RoleDTO(customer.getRole()));
 		
