@@ -13,9 +13,8 @@ public interface CustomerService {
 	/**
 	 * Enregistrer un nouvel utilisateur
 	 * 
-	 * @param customerDTO DTO des données de l'utilisateur {@link CustomerDTO}
-	 * @throws BusinessException Exception fonctionnelle {@link BusinessException}
-	 * @author Eric LEGBA
+	 * @param customerDTO : DTO des données de l'utilisateur {@link CustomerDTO}
+	 * @throws BusinessException : Exception fonctionnelle {@link BusinessException}
 	 */
 	void create(CustomerDTO customerDTO) throws BusinessException;
 	
@@ -24,10 +23,9 @@ public interface CustomerService {
 	 * 
 	 * Modifier les informations d'un utilisateur
 	 * 
-	 * @param customerDTO DTO des données de l'utilisateur {@link CustomerDTO}
+	 * @param customerDTO : DTO des données de l'utilisateur {@link CustomerDTO}
 	 * @return customer {@link CustomerDTO}
-	 * @throws BusinessException Exception fonctionnelle {@link BusinessException}
-	 * @author Eric LEGBA
+	 * @throws BusinessException : Exception fonctionnelle {@link BusinessException}
 	 */
 	CustomerDTO update(CustomerDTO customerDTO) throws BusinessException;
 	
@@ -36,8 +34,7 @@ public interface CustomerService {
 	 * 
 	 * Supprimer un utilisateur
 	 * 
-	 * @param id Identifiant de l'utilisateur à supprimer {@link Long} 
-	 * @author Eric LEGBA
+	 * @param id : Identifiant de l'utilisateur à supprimer {@link Long} 
 	 */
 	void delete(Long id);
 	

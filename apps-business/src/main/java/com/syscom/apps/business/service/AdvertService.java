@@ -13,8 +13,8 @@ public interface AdvertService {
 	/**
 	 * Enregistrer une nouvelle annonce
 	 * 
-	 * @param advert annonce à créer {@link Advert}
-	 * @throws BusinessException Exception fonctionnelle {@link BusinessException}
+	 * @param advert : annonce à créer {@link Advert}
+	 * @throws BusinessException : Exception fonctionnelle {@link BusinessException}
 	 */
 	void create(Advert advert) throws BusinessException;
 	

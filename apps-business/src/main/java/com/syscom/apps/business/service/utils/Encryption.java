@@ -51,48 +51,51 @@ public class Encryption implements Serializable {
 	}
 
 	/**
+	 * Convertir des données de la Base64 vers un tableau de byte.
 	 * 
-	 * @param data
-	 * @return
+	 * @param data : données à convertir {@link String}
+	 * @return un tableau de byte.
 	 */
-	public byte[] base64ToByte(String data) {
+	private byte[] base64ToByte(String data) {
 		Base64 decoder = new Base64();
 		return decoder.decode(data);
 
 	}
 
 	/**
+	 * Convertir des données de type byte en Base64.
 	 * 
-	 * @param data
-	 * @return
+	 * @param data : tableau de byte à convertir en Base64.
+	 * @return {@link String}
 	 */
-	public String byteToBase64(byte[] data) {
+	private String byteToBase64(byte[] data) {
 		Base64 encoder = new Base64();
 		return encoder.encodeToString(data);
 	}
 
 	/**
+	 * Decrypter un mot de passe avec un sel de contrôle.
 	 * 
-	 * @param password
-	 * @param salt
+	 * @param password : mot de passe
+	 * @param salt : sel de contrôle
 	 * @return {@link String}
-	 * @author Eric LEGBA
 	 */
 	public String decrypt(String password, String salt)
 			throws NoSuchAlgorithmException {
 		byte[] bSalt = base64ToByte(salt);
 
 		// convert the String password to Byte type with the salt
-		byte[] digest = getHash(NUMBER_HACHAGE_ITERATION, password, bSalt);
+		byte[] digest = getHash(password, bSalt);
 
 		// Obtain the fingerprint of the password
 		return byteToBase64(digest);
 	}
 
 	/**
+	 * Encrypter un mot de passe clair pour fournir un mot de passe haché avec son sel de contrôle.
 	 * 
-	 * @param password
-	 * @return
+	 * @param password : mot de passe à encrypter {@link String}
+	 * @return 
 	 * @throws NoSuchAlgorithmException
 	 */
 	public Credentials encrypt(String password) throws NoSuchAlgorithmException {
@@ -104,7 +107,7 @@ public class Encryption implements Serializable {
 		secureRandom.nextBytes(bSalt);
 
 		// Digest computation using a number of hachage
-		byte[] bDigest = getHash(NUMBER_HACHAGE_ITERATION, password, bSalt);
+		byte[] bDigest = getHash(password, bSalt);
 
 		// Convert the byte type to Base64
 		String passwordEncrypt = byteToBase64(bDigest);
@@ -119,8 +122,9 @@ public class Encryption implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @return
+	 *  Créer un token pour une réinitialisation de mot de passe.
+	 *  
+	 * @return {@link String}
 	 * @throws NoSuchAlgorithmException
 	 */
 	public String createTokenReinitMDP() throws NoSuchAlgorithmException {
@@ -137,20 +141,19 @@ public class Encryption implements Serializable {
 	}
 
 	/**
-	 * 
-	 * @param iterationNb
-	 * @param password
-	 * @param salt
+	 * Méthode pour hacher un mot de passe clair avec un sel de contrôle. Hachage effectué un nombre de fois important.
+	 * @param : password mot de passe clair.
+	 * @param salt : sel de contrôle.
 	 * @return
 	 * @throws NoSuchAlgorithmException
 	 */
-	private byte[] getHash(int iterationNb, String password, byte[] salt)
+	private byte[] getHash(String password, byte[] salt)
 			throws NoSuchAlgorithmException {
 		MessageDigest digest = MessageDigest.getInstance(ALGORITHM);
 		digest.reset();
 		digest.update(salt);
 		byte[] input = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-		for (int i = 0; i < iterationNb; i++) {
+		for (int i = 0; i < NUMBER_HACHAGE_ITERATION; i++) {
 			digest.reset();
 			input = digest.digest(input);
 		}

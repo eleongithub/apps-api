@@ -25,7 +25,7 @@
         <developerConnection>scm:git:git@github.com:eleongithub/apps-api.git</developerConnection>
     </scm>
     
-	<!-- In order for Maven to make release to a Nexus server, we define here 
+	<!-- In order for Maven to make snapshot/release to a Nexus server, we define here 
 		the repository information with <distributionManagement> element -->
 	<distributionManagement>
 		<repository>
@@ -91,15 +91,8 @@
 	    <!-- Don't let Sonar execute tests. We will delegate it to Maven -->
 	    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
 	    <sonar.sourceEncoding>UTF-8</sonar.sourceEncoding>
-    
-<!-- 		<coverage.reports.dir>${basedir}/target/coverage-reports</coverage.reports.dir>
-		<sonar.surefire.reportsPath>${project.build.directory}/surefire-reports</sonar.surefire.reportsPath>
-    	<sonar.failsafe.reportsPath>${session.executionRootDirectory}/target/failsafe-reports</sonar.failsafe.reportsPath>
- -->		
  		<sonar.jacoco.reportPaths>${basedir}/target/jacoco.exec</sonar.jacoco.reportPaths>
-		<!--<sonar.jacoco.reportPath>${coverage.reports.dir}/jacoco-unit.exec</sonar.jacoco.reportPath>-->
-		<!-- <sonar.jacoco.itReportPath>${coverage.reports.dir}/jacoco-it.exec</sonar.jacoco.itReportPath>
-		<sonar.jacoco.jar>${basedir}/lib/jacocoagent.jar</sonar.jacoco.jar> -->
+
 	</properties>
 
 
@@ -182,49 +175,7 @@
 			<id>run-its</id> <!-- Definir un profile pour executer les tests -->
 			<build>
 				<plugins>
-					<!-- Execution des tests unitaires -->
-					<!-- <plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<configuration>
-							<argLine>-Xms1024m -Xmx1024m -XX:PermSize=1024m</argLine>-Xms1024m -Xmx1024m -XX:PermSize=1024m -XX:MaxPermSize=1024m -javaagent:${sonar.jacoco.jar}=destfile=${sonar.jacoco.reportPath},includes=com.*
-							<reportsDirectory>${sonar.surefire.reportsPath}</reportsDirectory>
-							<includes>
-								<include>**/*.class</include>
-							</includes> -->
-							<!-- <excludes>
-                				<exclude>com/syscom/apps/integrationsTests/**/*.class</exclude>
-              				</excludes> -->
-						<!-- </configuration>
-					</plugin> -->
 					
-					
-					<!-- Execution des tests d'intégration == -->
-					<!--<plugin>-->
-						<!-- <groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-failsafe-plugin</artifactId>
-						<configuration>
-							<argLine>-Xmx1024m -XX:PermSize=1024m</argLine> --><!-- -javaagent:${sonar.jacoco.jar}=destfile=${sonar.jacoco.itReportPath} -->
-							<!-- <reportsDirectory>${sonar.failsafe.reportsPath}</reportsDirectory>
-							<includes>
-								<include>**/*.class</include>
-							</includes> -->
-							<!-- <excludes>
-								<exclude>com/syscom/apps/unitTests/**/*.class</exclude>
-							</excludes> -->
-						<!-- </configuration> -->
-						<!-- Only run failsafe when required -->
-						<!-- <executions>
-							<execution>
-								<id>integration-test</id>
-								<phase>integration-test</phase>
-								<goals>
-									<goal>integration-test</goal>
-									<goal>verify</goal>
-								</goals>
-							</execution>
-						</executions> -->
-					<!--</plugin> -->
 					<plugin>
 						<groupId>org.jacoco</groupId>
 						<artifactId>jacoco-maven-plugin</artifactId>
@@ -243,34 +194,6 @@
             			<configuration>
                 			<destFile>${sonar.jacoco.reportPath}</destFile>
             			</configuration>
-						
-							<!--<execution>
-								<id>prepare-unit-test-agent</id>
-								<phase>process-test-classes</phase>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-								<configuration>
-									<destFile>${sonar.jacoco.reportPath}</destFile>
-									<propertyName>jacoco.agent.ut.arg</propertyName>
-									<append>true</append>
-								</configuration>
-							</execution>
-							
-							
-							<execution>
-								<id>prepare-integration-test-agent</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>prepare-agent</goal>
-								</goals>
-								<configuration>
-									<destFile>${sonar.jacoco.itReportPath}</destFile>
-									<propertyName>jacoco.agent.it.arg</propertyName>
-									<append>true</append>
-								</configuration>
-							</execution> 
-						</executions>-->
 					</plugin>
 				</plugins>
 			</build>
@@ -284,7 +207,6 @@
 			</dependencies>
 		</profile>
 	</profiles>
-
 
 <!-- mvn clean compile  install -Prun-its -Dsonar.host.url=http://192.168.1.97:9000 sonar:sonar -->
 </project>

@@ -16,7 +16,6 @@ public interface TokenService {
 	 *
 	 * @param value
 	 * @return {@link Token}
-	 * @author Eric LEGBA
 	 */
 	Token findValidToken(String value);
 	
@@ -25,7 +24,6 @@ public interface TokenService {
 	 *
 	 * @param value
 	 * @return {@link Token}
-	 * @author Eric LEGBA
 	 */
 	TokenDTO findToken(String value);
 

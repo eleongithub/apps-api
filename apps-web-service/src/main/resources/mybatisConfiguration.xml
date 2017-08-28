@@ -24,9 +24,6 @@
 
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.syscom.apps.dao" />
-		<!-- optional unless there are multiple session factories defined -->
-		<!-- <property name="sqlSessionFactoryBeanName" value="mySqlSessionFactory" 
-			/> -->
 		<property name="sqlSessionTemplateBeanName" value="mySqlSessionTemplate" />
 	</bean>
 

@@ -13,8 +13,7 @@ public interface LogAPIService {
 	 * 
 	 * Enregistrer un log d'API
 	 * 
-	 * @param logAPI les informations de l'API à enregistrer {@link LogAPI}
-	 * @author Eric LEGBA
+	 * @param logAPI : les informations de l'API à enregistrer {@link LogAPI}
 	 */
 	void create(LogAPI logAPI);
 	
@@ -24,7 +23,6 @@ public interface LogAPIService {
 	 * 
 	 * @param codeAPI code de l'API {@link String}
 	 * @return LogAPI log API correspondant {@link LogAPI}
-	 * @author Eric LEGBA
 	 */
 	LogAPI findByCode(String codeAPI);
 

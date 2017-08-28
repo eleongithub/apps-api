@@ -31,7 +31,6 @@ public class Credentials implements Serializable{
 	 * 
 	 * @param password : mot de passe
 	 * @param salt : sel de contrôle
-	 * @author Eric LEGBA
 	 */
 	public Credentials(String password, String salt){
 		this.password = password;
