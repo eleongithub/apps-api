@@ -22,12 +22,14 @@ public class RoleDTO implements Serializable{
 	}
 	
 	public RoleDTO(Role role){
-		this.name = role.getName();
-		this.code = role.getCode();
-		functionDTOs = new ArrayList<>();
-		if(role.getFunctions()!=null){
-			functionDTOs = role.getFunctions().stream().map(function -> new FunctionDTO(function))
-			                   				  .collect(Collectors.toList());
+		if(role!=null){
+			this.name = role.getName();
+			this.code = role.getCode();
+			functionDTOs = new ArrayList<>();
+			if(role.getFunctions()!=null){
+				functionDTOs = role.getFunctions().stream().map(function -> new FunctionDTO(function))
+				                   				  .collect(Collectors.toList());
+			}
 		}
 	}
 	
