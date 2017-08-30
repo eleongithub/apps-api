@@ -47,14 +47,16 @@ public class LoginServiceImpl extends BaseService implements LoginService {
 	@Override
 	public TokenDTO authenticateCustomer(String authorization) throws BusinessException {
 		
-		Assert.notNull(authorization,"Le credential doit être non nul");
+		Assert.notNull(authorization,getMessage("credential.mandatory"));
 
-		String credentials = new String(Base64.getDecoder().decode(authorization.getBytes()));
+		String stripAuthorization = StringUtils.strip(authorization, "\"");
+		
+		String credentials = new String(Base64.getDecoder().decode(stripAuthorization.getBytes()));
 		
 //		Split login and password tokens
 		String[] tokenizer = StringUtils.split(credentials, ":");
 		if(tokenizer==null || tokenizer.length!=2){
-			throw new BusinessException("Le credential est invalide");
+			throw new BusinessException(getMessage("credential.invalid"));
 		}
         String mail = tokenizer[0];
         String password = tokenizer[1];

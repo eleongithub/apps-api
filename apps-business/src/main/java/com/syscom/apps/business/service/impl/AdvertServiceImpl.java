@@ -4,17 +4,17 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.util.Assert;
 import com.google.common.base.Joiner;
 import com.syscom.apps.business.service.AdvertService;
 import com.syscom.apps.criterias.CustomerCriteria;
 import com.syscom.apps.dao.AdvertDao;
 import com.syscom.apps.dao.CustomerDao;
+import com.syscom.apps.dto.AdvertDTO;
 import com.syscom.apps.exception.BusinessException;
 import com.syscom.apps.model.Advert;
 import com.syscom.apps.model.Customer;
@@ -36,21 +36,29 @@ public class AdvertServiceImpl extends BaseService implements AdvertService {
 	 * {@inheritDoc} 
 	 */
 	@Override
-	public void create(Advert advert) throws BusinessException {
-		List<String> appsErrors = this.checkInputDatas(advert);
+	public void create(AdvertDTO advertDTO) throws BusinessException{
+		
+		Assert.notNull(advertDTO,getMessage("advert.mandatory"));
+		
+		Advert advert = new Advert();
+		advert.setDescription(advertDTO.getDescription());
+		advert.setPrice(advertDTO.getPrice());
+		advert.setTitle(advertDTO.getTitle());
+		if(advertDTO.getCustomerDTO()!=null){
+			Customer  customer = new Customer();
+			customer.setId(advertDTO.getCustomerDTO().getId());
+			advert.setCustomer(customer);
+		}
+		
+		List<String> appsErrors = checkInputDatas(advert);
 		
 		if(!appsErrors.isEmpty()){
 			String message = getMessage("create.empty.error")+Joiner.on(",").join(appsErrors);
 			throw new BusinessException(message);
 		}
-		Customer customer = advert.getCustomer();
-		// Check Exist login, mail, telephone, name + firstName
+		// Check Exist customer
 		CustomerCriteria criteria = new CustomerCriteria.Builder()
-														.id(customer.getId())
-														.name(customer.getName())
-														.firstName(customer.getFirstName())
-														.mail(customer.getMail())
-														.phone(customer.getPhone())
+														.id(advert.getCustomer().getId())
 														.build();
 		List<Customer> customers = customerDao.findCustomersByCriteria(criteria);
 		if(CollectionUtils.isEmpty(customers)){
@@ -58,9 +66,8 @@ public class AdvertServiceImpl extends BaseService implements AdvertService {
 		}
 		advert.setCustomer(customers.get(0));
 		advertDao.create(advert);	
-		
 	}
-
+	
 	private List<String> checkInputDatas(Advert advert) {
 		List<String> appsErrors = new ArrayList<>();
 

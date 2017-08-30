@@ -1,7 +1,7 @@
 package com.syscom.apps.business.service;
 
+import com.syscom.apps.dto.AdvertDTO;
 import com.syscom.apps.exception.BusinessException;
-import com.syscom.apps.model.Advert;
 
 /**
  * Contrat d'interface du service pour gérer les annonces
@@ -9,13 +9,12 @@ import com.syscom.apps.model.Advert;
  * @author Eric LEGBA
  */
 public interface AdvertService {
-
+	
 	/**
 	 * Enregistrer une nouvelle annonce
 	 * 
-	 * @param advert : annonce à créer {@link Advert}
+	 * @param advertDTO : annonce à créer {@link AdvertDTO}
 	 * @throws BusinessException : Exception fonctionnelle {@link BusinessException}
 	 */
-	void create(Advert advert) throws BusinessException;
-	
+	void create(AdvertDTO advertDTO) throws BusinessException;
 }

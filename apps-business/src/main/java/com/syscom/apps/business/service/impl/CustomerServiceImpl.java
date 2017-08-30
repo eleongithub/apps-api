@@ -10,6 +10,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import com.google.common.base.Joiner;
 import com.syscom.apps.business.service.CustomerService;
@@ -39,6 +40,8 @@ public class CustomerServiceImpl extends BaseService implements CustomerService 
 	/** {@inheritDoc} */
 	@Override
 	public void create(CustomerDTO customerDTO) throws BusinessException {
+		
+		Assert.notNull(customerDTO,getMessage("customer.mandatory"));
 		
 		this.checkInputDatas(customerDTO); 	
 		
